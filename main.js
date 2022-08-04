@@ -12,6 +12,7 @@ export const appButton = document.getElementById('app-button');
 export const fullRunButton = document.getElementById('full-run');
 export const alertIcon = document.getElementById('alert');
 export const errorIcon = document.getElementById('error');
+export const sparkleButton = document.getElementById('sparkle');
 
 export const compositionContainer = document.getElementById(
   'composition-container'
@@ -24,7 +25,9 @@ appButton.addEventListener('click', () => {
   execute({ value: 'LINK ' + consoleElement.value });
   playSound(6);
 });
-
+sparkleButton.addEventListener('click', () => {
+  execute({ value: 'PRETTY' });
+});
 keyButton.addEventListener('click', () => {
   const out = [];
   for (let i = 0; i < localStorage.length; ++i) {

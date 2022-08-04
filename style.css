@@ -124,9 +124,9 @@ body {
   transform: translateX(5px);
 } */
 .svgIcon:hover {
-  color: var(--color-thirdly);
-  fill: var(--color-thirdly);
-  stroke: var(--color-thirdly);
+  color: var(--special);
+  fill: var(--special);
+  stroke: var(--special);
 }
 
 .svgIcon {

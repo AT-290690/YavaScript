@@ -18,11 +18,31 @@ export const correctFilePath = filename => {
   if (!filename) return '';
   return '/' + filename.split('/').filter(Boolean).join('/');
 };
-
 export const State = {
   activeWindow: null,
   isErrored: true,
-  mute: !!localStorage.getItem('mute')
+  mute: !!localStorage.getItem('mute'),
+  settings: {
+    beautify: {
+      indent_size: '2',
+      indent_char: ' ',
+      max_preserve_newlines: '-1',
+      preserve_newlines: false,
+      keep_array_indentation: true,
+      break_chained_methods: true,
+      indent_scripts: 'keep',
+      brace_style: 'none,preserve-inline',
+      space_before_conditional: true,
+      unescape_strings: false,
+      jslint_happy: true,
+      end_with_newline: false,
+      wrap_line_length: '80',
+      indent_inner_html: false,
+      comma_first: false,
+      e4x: true,
+      indent_empty_lines: false
+    }
+  }
 };
 
 export const droneIntel = icon => {
