@@ -67,7 +67,10 @@ export const execute = async CONSOLE => {
       playSound(5);
       break;
     case 'DROP':
-      localStorage.removeItem(PARAMS[0] ? 'stash-' + PARAMS[0] : 'stash-main');
+      for (let i = 0; i < localStorage.length; ++i) {
+        const key = localStorage.key(i);
+        if (key.includes('stash-')) localStorage.removeItem(key);
+      }
       consoleElement.value = '';
       editor.setValue('');
       playSound(5);

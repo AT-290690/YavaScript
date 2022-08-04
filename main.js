@@ -34,7 +34,6 @@ keyButton.addEventListener('click', () => {
     const key = localStorage.key(i);
     if (key.includes('stash-')) out.push(key.split('stash-')[1]);
   }
-
   editor.setValue(`Stashed code: 
 
 ${out.join('\n')}
