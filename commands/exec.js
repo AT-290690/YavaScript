@@ -20,7 +20,7 @@ export const execute = async CONSOLE => {
       break;
 
     case 'ABOUT':
-      editor.setValue(`
+      editor.setValue(`/*
   MIT License
 
   Copyright (c) 2022 AT-290690
@@ -42,7 +42,7 @@ export const execute = async CONSOLE => {
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
-      `);
+      */`);
 
       break;
     case 'LOAD':
@@ -121,7 +121,8 @@ export const execute = async CONSOLE => {
     //   window.open().document.write(await execute({ value: '_COMPILE' }));
     //break;
     case 'HELP':
-      editor.setValue(` HELP: list these commands
+      editor.setValue(`/* 
+ HELP: list these commands
  EMPTY: clears the editor content
  SAVE: save in starage
  LOAD load from storage
@@ -129,9 +130,8 @@ export const execute = async CONSOLE => {
  DROP drop all storage
  RUN: run code 
  SOUND OFF
- SOUND ONN
-
-`);
+ SOUND ON
+*/`);
       playSound(2);
 
       consoleElement.value = '';

@@ -34,12 +34,21 @@ keyButton.addEventListener('click', () => {
     const key = localStorage.key(i);
     if (key.includes('stash-')) out.push(key.split('stash-')[1]);
   }
-  editor.setValue(`Stashed code: 
+  editor.setValue(
+    out.length
+      ? `/*
+Code stash: 
 
 ${out.join('\n')}
 
 LOAD name
-`);
+*/`
+      : `/* 
+Your code stash is empty...
+
+SAVE name
+*/`
+  );
   playSound(3);
 });
 export const editor = CodeMirror(editorContainer, {});
