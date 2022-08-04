@@ -28,13 +28,13 @@ export const execute = async CONSOLE => {
     case 'STASH':
       consoleElement.value = '';
       PARAMS[0] = PARAMS[0]?.toUpperCase();
-      if (PARAMS[0] === 'PUSH') {
+      if (PARAMS[0] === 'SAVE') {
         localStorage.setItem(
           PARAMS[1] ? 'stash-' + PARAMS[1] : 'stash-main',
           editor.getValue()
         );
       }
-      if (PARAMS[0] === 'POP') {
+      if (PARAMS[0] === 'LOAD') {
         editor.setValue(
           localStorage.getItem(PARAMS[1] ? 'stash-' + PARAMS[1] : 'stash-main')
         );

@@ -31,10 +31,15 @@ keyButton.addEventListener('click', () => {
   const out = [];
   for (let i = 0; i < localStorage.length; ++i) {
     const key = localStorage.key(i);
-    if (key.includes('stash-')) out.push();
+    if (key.includes('stash-')) out.push(key.split('stash-')[1]);
   }
 
-  editor.setValue(out.join('\n'));
+  editor.setValue(`Stashed code: 
+${out.join('\n')}
+
+type STASH LOAD name
+to ovewrte STASH SAVE name
+`);
 });
 export const editor = CodeMirror(editorContainer, {});
 
