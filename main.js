@@ -99,5 +99,6 @@ if (urlParams.has('gist')) {
       return buffer.text();
     })
     .then(gist => editor.setValue(gist))
+    .then(() => run())
     .catch(err => printErrors(err));
 }
