@@ -52,7 +52,6 @@ export const exe = (source, params) => {
     return result;
   } catch (err) {
     droneIntel(errorIcon);
-    canvasContainer.style.background = 'var(--background-primary)';
     consoleElement.classList.remove('info_line');
     consoleElement.classList.add('error_line');
     consoleElement.value = consoleElement.value.trim() || err + ' ';

@@ -4,7 +4,6 @@ import { printErrors, run, State } from './commands/utils.js';
 import { GIST } from './config.js';
 export const consoleElement = document.getElementById('console');
 export const editorContainer = document.getElementById('editor-container');
-export const canvasContainer = document.getElementById('canvas-container');
 export const mainContainer = document.getElementById('main-container');
 export const headerContainer = document.getElementById('header');
 export const focusButton = document.getElementById('focus-button');
