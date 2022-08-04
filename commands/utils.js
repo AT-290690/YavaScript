@@ -18,24 +18,11 @@ export const correctFilePath = filename => {
   if (!filename) return '';
   return '/' + filename.split('/').filter(Boolean).join('/');
 };
+
 export const State = {
-  list: {},
-  selectedRealm: 'realm0',
-  lsHistory: '/',
-  lastVisitedDir: '/',
-  env: null,
-  components: {},
-  lastSelection: '',
-  AST: {},
   activeWindow: null,
-  comments: null,
-  lastComposition: null,
-  isLogged: false,
   isErrored: true,
-  isAtTheBottom: true,
-  gap: 15,
-  height: window.innerHeight - 62,
-  stash: { liveSession: '' }
+  mute: !!localStorage.getItem('mute')
 };
 
 export const droneIntel = icon => {
@@ -44,17 +31,32 @@ export const droneIntel = icon => {
     icon.style.visibility = 'hidden';
   }, 500);
 };
-
+const sounds = [];
+for (const sound of document.getElementsByTagName('audio')) {
+  sound.volume = sound.volume * 0.1;
+  sounds.push(sound);
+}
+export const playSound = index => {
+  if (!State.mute) {
+    sounds.forEach(sound => {
+      sound.pause();
+      sound.currentTime = 0;
+    });
+    sounds[index].play();
+  }
+};
 export const exe = (source, params) => {
   try {
     const result = new Function(`${params.topLevel};${source}`)();
     droneIntel(alertIcon);
+    playSound(1);
     return result;
   } catch (err) {
     droneIntel(errorIcon);
     consoleElement.classList.remove('info_line');
     consoleElement.classList.add('error_line');
     consoleElement.value = consoleElement.value.trim() || err + ' ';
+    playSound(0);
   }
 };
 // const preprocess = source =>

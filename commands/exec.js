@@ -1,7 +1,7 @@
 import { GIST, API, APP } from '../config.js';
 import { consoleElement } from '../main.js';
 import { editor } from '../main.js';
-import { run, printErrors } from './utils.js';
+import { run, printErrors, playSound, State } from './utils.js';
 
 export const execute = async CONSOLE => {
   consoleElement.classList.remove('error_line');
@@ -12,6 +12,7 @@ export const execute = async CONSOLE => {
     case 'EMPTY':
       editor.setValue('');
       consoleElement.value = '';
+      playSound(0);
       break;
     case 'RUN':
       run();
@@ -19,33 +20,71 @@ export const execute = async CONSOLE => {
       break;
 
     case 'ABOUT':
-      consoleElement.value = ``;
+      editor.setValue(`
+      MIT License
+
+      Copyright (c) 2022 AT-290690
+      
+      Permission is hereby granted, free of charge, to any person obtaining a copy
+      of this software and associated documentation files (the "Software"), to deal
+      in the Software without restriction, including without limitation the rights
+      to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+      copies of the Software, and to permit persons to whom the Software is
+      furnished to do so, subject to the following conditions:
+      
+      The above copyright notice and this permission notice shall be included in all
+      copies or substantial portions of the Software.
+      
+      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+      IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+      FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+      AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+      LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+      OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+      SOFTWARE.
+      `);
 
       break;
-    case 'EXAMPLE':
-      editor.setValue(``);
-      break;
-    case 'STASH':
+    case 'LOAD':
+      editor.setValue(
+        localStorage.getItem(PARAMS[0] ? 'stash-' + PARAMS[0] : 'stash-main')
+      );
+      playSound(2);
       consoleElement.value = '';
-      PARAMS[0] = PARAMS[0]?.toUpperCase();
-      if (PARAMS[0] === 'SAVE') {
-        localStorage.setItem(
-          PARAMS[1] ? 'stash-' + PARAMS[1] : 'stash-main',
-          editor.getValue()
-        );
-      }
-      if (PARAMS[0] === 'LOAD') {
-        editor.setValue(
-          localStorage.getItem(PARAMS[1] ? 'stash-' + PARAMS[1] : 'stash-main')
-        );
-      }
-      if (PARAMS[0] === 'CLEAR') {
-        localStorage.removeItem(
-          PARAMS[1] ? 'stash-' + PARAMS[1] : 'stash-main'
-        );
+      break;
+    case 'SAVE':
+      consoleElement.value = '';
+      localStorage.setItem(
+        PARAMS[0] ? 'stash-' + PARAMS[0] : 'stash-main',
+        editor.getValue()
+      );
+      playSound(4);
+
+      break;
+    case 'DELETE':
+      localStorage.removeItem(PARAMS[0] ? 'stash-' + PARAMS[0] : 'stash-main');
+      consoleElement.value = '';
+      playSound(5);
+      break;
+    case 'DROP':
+      localStorage.removeItem(PARAMS[0] ? 'stash-' + PARAMS[0] : 'stash-main');
+      consoleElement.value = '';
+      editor.setValue('');
+      playSound(5);
+      break;
+    case 'SOUND':
+      switch (PARAMS[0]?.toUpperCase()) {
+        case 'ON':
+          State.mute = false;
+          localStorage.removeItem('mute');
+          break;
+
+        case 'OFF':
+          State.mute = true;
+          localStorage.setItem('mute', true);
+          break;
       }
       break;
-
     // case 'DOWNLOAD':
     //   {
     //     const filename = PARAMS[0];
@@ -58,7 +97,17 @@ export const execute = async CONSOLE => {
     //   break;
 
     case 'LINK':
-      consoleElement.value = `${API}/${APP}/?gist=${PARAMS[0].split(GIST)[1]}`;
+      if (
+        PARAMS[0] &&
+        consoleElement.value !== 'Paste a link from RAW github gist here!'
+      ) {
+        consoleElement.value = `${API}/${APP}/?gist=${
+          PARAMS[0].split(GIST)[1]
+        }`;
+      } else {
+        consoleElement.value = 'Paste a link from RAW github gist here!';
+      }
+
       break;
     // case 'APP':
     //   window.open().document.write(await execute({ value: '_COMPILE' }));
@@ -66,16 +115,24 @@ export const execute = async CONSOLE => {
     case 'HELP':
       editor.setValue(` HELP: list these commands
  EMPTY: clears the editor content
- SAVE: create a file
- RUN: run script locally 
+ SAVE: save in starage
+ LOAD load from storage
+ DELETE remove from storage
+ DROP drop all storage
+ RUN: run code 
+ SOUND OFF
+ SOUND ONN
 
 `);
+      playSound(2);
+
       consoleElement.value = '';
 
       break;
     default:
       if (CMD.trim()) printErrors(CMD + ' does not exist!');
       else consoleElement.value = '';
+      playSound(0);
       break;
   }
 };

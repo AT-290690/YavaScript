@@ -1,6 +1,6 @@
 import { CodeMirror } from './libs/editor/editor.bundle.js';
 import { execute } from './commands/exec.js';
-import { printErrors, run, State } from './commands/utils.js';
+import { playSound, printErrors, run, State } from './commands/utils.js';
 import { GIST } from './config.js';
 export const consoleElement = document.getElementById('console');
 export const editorContainer = document.getElementById('editor-container');
@@ -8,13 +8,11 @@ export const mainContainer = document.getElementById('main-container');
 export const headerContainer = document.getElementById('header');
 export const focusButton = document.getElementById('focus-button');
 export const keyButton = document.getElementById('key');
-
-// export const plotButton = document.getElementById('plot-button');
-// export const plotContainer = document.getElementById('plot');
 export const appButton = document.getElementById('app-button');
 export const fullRunButton = document.getElementById('full-run');
 export const alertIcon = document.getElementById('alert');
 export const errorIcon = document.getElementById('error');
+
 export const compositionContainer = document.getElementById(
   'composition-container'
 );
@@ -22,9 +20,10 @@ export const editorResizerElement = document.getElementById('editor-resizer');
 export const consoleResizerElement = document.getElementById('console-resizer');
 
 fullRunButton.addEventListener('click', () => run());
-appButton.addEventListener('click', () =>
-  execute({ value: 'LINK ' + consoleElement.value })
-);
+appButton.addEventListener('click', () => {
+  execute({ value: 'LINK ' + consoleElement.value });
+  playSound(6);
+});
 
 keyButton.addEventListener('click', () => {
   const out = [];
@@ -40,6 +39,7 @@ ${out.join('\n')}
 STASH LOAD name
 STASH SAVE name
 `);
+  playSound(3);
 });
 export const editor = CodeMirror(editorContainer, {});
 
@@ -60,19 +60,6 @@ document.addEventListener('keydown', e => {
     if (activeElement === consoleElement) {
       execute(consoleElement);
     }
-  } else if (
-    activeElement === consoleElement &&
-    e.altKey &&
-    e.key === 'ArrowUp'
-  ) {
-    editor.focus();
-    State.activeWindow = editorContainer;
-  } else if (
-    State.activeWindow === editorContainer &&
-    e.altKey &&
-    e.key === 'ArrowDown'
-  ) {
-    consoleElement.focus();
   }
 });
 
