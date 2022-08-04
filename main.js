@@ -13,13 +13,18 @@ export const fullRunButton = document.getElementById('full-run');
 export const alertIcon = document.getElementById('alert');
 export const errorIcon = document.getElementById('error');
 export const sparkleButton = document.getElementById('sparkle');
+export const debugButt = document.getElementById('debug-button');
 
 export const compositionContainer = document.getElementById(
   'composition-container'
 );
 export const editorResizerElement = document.getElementById('editor-resizer');
 export const consoleResizerElement = document.getElementById('console-resizer');
-
+debugButt.addEventListener('click', () =>
+  !State.settings.lint
+    ? execute({ value: 'LINT ON' })
+    : execute({ value: 'LINT OFF' })
+);
 fullRunButton.addEventListener('click', () => run());
 appButton.addEventListener('click', () => {
   execute({ value: 'LINK ' + consoleElement.value });

@@ -5,7 +5,7 @@
   --border: #6b84b0;
   --background-primary: #0f0f0f;
   --background-secondary: #b578ff58;
-  --color-primary: #ec8bd6;
+  --color-primary: #809ac6;
   --color-secondary: #42c6ff;
   --color-thirdly: #b578ff;
   --color-fourtly: #75ff91;
@@ -44,6 +44,7 @@
   --drone2: orchid;
   --drone3: pink;
   --drone4: #2a2c2e;
+  --hover: #ec8bd6;
 }
 
 text,
@@ -124,9 +125,9 @@ body {
   transform: translateX(5px);
 } */
 .svgIcon:hover {
-  color: var(--color-primary);
-  fill: var(--color-primary);
-  stroke: var(--color-primary);
+  color: var(--hover);
+  fill: var(--hover);
+  stroke: var(--hover);
 }
 
 .svgIcon {
@@ -150,9 +151,6 @@ body {
   /* border-bottom: solid var(--border-width) var(--comment); */
   position: fixed;
   z-index: 1000;
-}
-#full-run:active {
-  background-color: #e285fc5b;
 }
 #alert,
 #error,

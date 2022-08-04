@@ -23,6 +23,7 @@ export const State = {
   isErrored: true,
   mute: !!localStorage.getItem('mute'),
   settings: {
+    lint: false,
     beautify: {
       indent_size: '2',
       indent_char: ' ',
@@ -44,7 +45,18 @@ export const State = {
     }
   }
 };
-
+export const debug = () => {
+  if (!State.settings.lint) {
+    State.settings.lint = true;
+    editor.switchInstance({
+      lint: true,
+      doc: editor.getValue(),
+      callback: () => {
+        setTimeout(() => debug(), 2000);
+      }
+    });
+  }
+};
 export const droneIntel = icon => {
   icon.style.visibility = 'visible';
   setTimeout(() => {

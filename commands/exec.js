@@ -1,7 +1,7 @@
 import { GIST, API, APP } from '../config.js';
 import { consoleElement } from '../main.js';
 import { editor } from '../main.js';
-import { run, printErrors, playSound, State } from './utils.js';
+import { run, printErrors, playSound, State, debug } from './utils.js';
 
 export const execute = async CONSOLE => {
   consoleElement.classList.remove('error_line');
@@ -44,6 +44,24 @@ export const execute = async CONSOLE => {
   SOFTWARE.
       */`);
 
+      break;
+    case 'LINT':
+      {
+        const inp = PARAMS[0]?.toUpperCase();
+        if (inp === 'OFF') {
+          playSound(5);
+
+          State.settings.lint = false;
+          editor.switchInstance({
+            lint: false,
+            doc: editor.getValue()
+          });
+        } else if (inp === 'ON') {
+          playSound(3);
+
+          debug();
+        } else consoleElement.value = 'Provide a lint option on/off';
+      }
       break;
     case 'LOAD':
       editor.setValue(
