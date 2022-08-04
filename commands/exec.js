@@ -1,7 +1,7 @@
-import { GIST } from '../config.js';
+import { GIST, API, APP } from '../config.js';
 import { consoleElement } from '../main.js';
 import { editor } from '../main.js';
-import { run, State, printErrors, API } from './utils.js';
+import { run, printErrors } from './utils.js';
 
 export const execute = async CONSOLE => {
   consoleElement.classList.remove('error_line');
