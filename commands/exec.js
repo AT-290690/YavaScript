@@ -13,21 +13,6 @@ export const execute = async CONSOLE => {
       editor.setValue('');
       consoleElement.value = '';
       break;
-    case 'CLEAR':
-      {
-        fetch(`${API}/${State.selectedRealm}/empty`, {
-          method: 'DELETE',
-          headers: {
-            credentials: 'same-origin',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ dir: globalThis.HYPER_LIGHT_SCRIPT_PORTAL })
-        }).then(() => {
-          consoleElement.value = '';
-        });
-      }
-      break;
-
     case 'RUN':
       run();
       consoleElement.value = '';
@@ -73,14 +58,13 @@ export const execute = async CONSOLE => {
     //   break;
 
     case 'LINK':
-      consoleElement.value = `${API}/?gist=${PARAMS[0].split(GIST)[1]}`;
+      consoleElement.value = `${API}/${APP}/?gist=${PARAMS[0].split(GIST)[1]}`;
       break;
     // case 'APP':
     //   window.open().document.write(await execute({ value: '_COMPILE' }));
     //break;
     case 'HELP':
       editor.setValue(` HELP: list these commands
- CLEAR: clears the portal or directory
  EMPTY: clears the editor content
  SAVE: create a file
  RUN: run script locally 

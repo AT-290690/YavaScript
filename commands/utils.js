@@ -13,10 +13,7 @@ export const printErrors = errors => {
 
   consoleElement.value = errors;
 };
-const href = window.location.href.split('/').filter(Boolean);
-const envi = href.slice(1, 2);
-const protocol = envi[0].includes('localhost') ? 'http://' : 'https://';
-export const API = protocol + envi.join('/');
+
 export const correctFilePath = filename => {
   if (!filename) return '';
   return '/' + filename.split('/').filter(Boolean).join('/');
