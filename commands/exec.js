@@ -105,9 +105,10 @@ export const execute = async CONSOLE => {
         PARAMS[0] &&
         consoleElement.value !== 'Paste a link from RAW github gist here!'
       ) {
-        consoleElement.value = `${API}/${APP}/?gist=${
-          PARAMS[0].split(GIST)[1]
-        }`;
+        const gist = PARAMS[0].split(GIST)[1];
+        consoleElement.value = gist
+          ? `${API}/${APP}/?gist=${gist}`
+          : 'Invalid Gist Raw Link!';
       } else {
         consoleElement.value = 'Paste a link from RAW github gist here!';
       }

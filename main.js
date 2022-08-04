@@ -39,8 +39,7 @@ keyButton.addEventListener('click', () => {
 
 ${out.join('\n')}
 
-STASH LOAD name
-STASH SAVE name
+LOAD name
 `);
   playSound(3);
 });
