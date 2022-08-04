@@ -35,10 +35,11 @@ keyButton.addEventListener('click', () => {
   }
 
   editor.setValue(`Stashed code: 
+
 ${out.join('\n')}
 
-type STASH LOAD name
-to ovewrte STASH SAVE name
+STASH LOAD name
+STASH SAVE name
 `);
 });
 export const editor = CodeMirror(editorContainer, {});
