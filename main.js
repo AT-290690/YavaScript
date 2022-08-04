@@ -23,7 +23,9 @@ export const editorResizerElement = document.getElementById('editor-resizer');
 export const consoleResizerElement = document.getElementById('console-resizer');
 
 fullRunButton.addEventListener('click', () => run());
-appButton.addEventListener('click', () => execute({ value: 'RUN' }));
+appButton.addEventListener('click', () =>
+  execute({ value: 'LINK ' + consoleElement.value })
+);
 
 keyButton.addEventListener('click', () => {
   const out = [];

@@ -1,3 +1,4 @@
+import { GIST } from '../config.js';
 import { consoleElement } from '../main.js';
 import { editor } from '../main.js';
 import { run, State, printErrors, API } from './utils.js';
@@ -72,9 +73,7 @@ export const execute = async CONSOLE => {
     //   break;
 
     case 'LINK':
-      if (PARAMS.length) {
-        consoleElement.value = ``;
-      }
+      consoleElement.value = `${API}/?gist=${PARAMS[0].split(GIST)[1]}`;
       break;
     // case 'APP':
     //   window.open().document.write(await execute({ value: '_COMPILE' }));
