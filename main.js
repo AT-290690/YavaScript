@@ -112,7 +112,9 @@ if (urlParams.has('gist')) {
         topLevel.length
           ? gist
               .replace(
-                `//<vanish>\n${(State.topLevel = topLevel)}\n//</vanish>`,
+                `//<vanish>
+${(State.topLevel = topLevel)}
+//</vanish>`,
                 ''
               )
               .trimStart()
