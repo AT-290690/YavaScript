@@ -106,6 +106,15 @@ export const execute = async CONSOLE => {
           break;
       }
       break;
+    // case 'TEST':
+    //   const topLevel = extractTopLevel(editor.getValue(), 'vanish');
+    //   editor.setValue(
+    //     editor
+    //       .getValue()
+    //       .replace(`//<vanish>${(State.topLevel = topLevel)}</vanish>`, '')
+    //       .trimStart()
+    //   );
+    //   break;
     case 'PRETTY':
       editor.setValue(js_beautify(editor.getValue(), State.settings.beautify));
       playSound(4);
