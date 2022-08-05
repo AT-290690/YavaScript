@@ -147,8 +147,12 @@ export const execute = async CONSOLE => {
  DELETE remove from storage
  DROP drop all storage
  RUN: run code 
- SOUND OFF
- SOUND ON
+ SOUND ON  enable sounds
+ SOUND OFF dissable sounds
+ LINT ON enable lint
+ LINT OFF dissable lint
+ PRETTY format code
+ ABOUT read license info
 */`);
       playSound(2);
 
