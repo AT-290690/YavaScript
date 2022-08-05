@@ -107,16 +107,11 @@ if (urlParams.has('gist')) {
       return buffer.text();
     })
     .then(gist => {
-      const topLevel = extractTopLevel(gist, 'yavascript');
+      const topLevel = extractTopLevel(gist, 'vanish');
       editor.setValue(
         topLevel.length
           ? gist
-              .replace(
-                `//<vanish>
-${(State.topLevel = topLevel)}
-//</vanish>`,
-                ''
-              )
+              .replace(`//<vanish>${(State.topLevel = topLevel)}</vanish>`, '')
               .trimStart()
           : gist
       );
