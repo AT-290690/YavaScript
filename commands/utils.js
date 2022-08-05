@@ -22,6 +22,7 @@ export const State = {
   activeWindow: null,
   isErrored: true,
   mute: +localStorage.getItem('mute') ?? 1,
+  topLevel: '',
   settings: {
     lint: false,
     beautify: {
@@ -45,6 +46,17 @@ export const State = {
     }
   }
 };
+
+export const extractTopLevel = (source, tag) => {
+  const regex = new RegExp(`\\<${tag}\\>([\\s\\S]+?)\\<\\/${tag}>`, 'g');
+  let result = [],
+    matches;
+  while ((matches = regex.exec(source))) {
+    result.push(matches[1]);
+  }
+  return result;
+};
+
 export const debug = () => {
   if (!State.settings.lint) {
     State.settings.lint = true;

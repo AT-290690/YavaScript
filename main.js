@@ -1,6 +1,12 @@
 import { CodeMirror } from './libs/editor/editor.bundle.js';
 import { execute } from './commands/exec.js';
-import { playSound, printErrors, run, State } from './commands/utils.js';
+import {
+  extractTopLevel,
+  playSound,
+  printErrors,
+  run,
+  State
+} from './commands/utils.js';
 import { GIST } from './config.js';
 export const consoleElement = document.getElementById('console');
 export const editorContainer = document.getElementById('editor-container');
@@ -100,7 +106,19 @@ if (urlParams.has('gist')) {
         return printErrors('Request failed with status ' + buffer.status);
       return buffer.text();
     })
-    .then(gist => editor.setValue(gist))
+    .then(gist => {
+      const topLevel = extractTopLevel(gist, 'yavascript');
+      editor.setValue(
+        topLevel.length
+          ? gist
+              .replace(
+                `<yavascript>${(State.topLevel = topLevel)}</yavascript>`,
+                ''
+              )
+              .trimStart()
+          : gist
+      );
+    })
     .then(() => run())
     .catch(err => printErrors(err));
 }
