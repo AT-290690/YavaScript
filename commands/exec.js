@@ -97,7 +97,7 @@ export const execute = async CONSOLE => {
       switch (PARAMS[0]?.toUpperCase()) {
         case 'ON':
           State.mute = false;
-          localStorage.removeItem('mute');
+          localStorage.setItem('mute', false);
           break;
 
         case 'OFF':
