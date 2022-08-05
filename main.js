@@ -111,7 +111,10 @@ if (urlParams.has('gist')) {
       editor.setValue(
         topLevel.length
           ? gist
-              .replace(`//<vanish>${(State.topLevel = topLevel)}</vanish>`, '')
+              .replace(
+                `//<vanish>${(State.topLevel = topLevel)}</vanish>`,
+                '\n'
+              )
               .trimStart()
           : gist
       );
