@@ -21,7 +21,7 @@ export const correctFilePath = filename => {
 export const State = {
   activeWindow: null,
   isErrored: true,
-  mute: !!localStorage.getItem('mute'),
+  mute: localStorage.getItem('mute') ?? true,
   settings: {
     lint: false,
     beautify: {
