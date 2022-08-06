@@ -110,7 +110,7 @@ export const run = () => {
   consoleElement.classList.add('info_line');
   consoleElement.classList.remove('error_line');
   consoleElement.value = '';
-  const source = editor.getValue();
+  const source = (State.source = editor.getValue());
   const out = exe(source.trim(), { topLevel: State.topLevel });
   if (out !== undefined) print(out);
   return source;

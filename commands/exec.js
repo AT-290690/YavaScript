@@ -4,7 +4,8 @@ import {
   consoleElement,
   errorIcon,
   sparkleIcon,
-  keyIcon
+  keyIcon,
+  questionIcon
 } from '../main.js';
 import { editor } from '../main.js';
 import {
@@ -23,6 +24,7 @@ export const execute = async CONSOLE => {
   const [CMD, ...PARAMS] = selectedConsoleLine.split(' ');
   switch (CMD?.trim()?.toUpperCase()) {
     case 'EMPTY':
+      State.source = editor.getValue();
       editor.setValue('');
       consoleElement.value = '';
       playSound(5);
@@ -33,6 +35,7 @@ export const execute = async CONSOLE => {
       consoleElement.value = '';
       break;
     case 'ABOUT':
+      State.source = editor.getValue();
       editor.setValue(`/* 
   Notepad.js
 
@@ -44,8 +47,12 @@ export const execute = async CONSOLE => {
   * Hide certain parts of the snippets
   
 */`);
+      droneIntel(questionIcon);
+      playSound(5);
+
       break;
     case 'LICENSE':
+      State.source = editor.getValue();
       editor.setValue(`/*
   MIT License
 
@@ -69,6 +76,8 @@ export const execute = async CONSOLE => {
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
       */`);
+      droneIntel(questionIcon);
+      playSound(5);
 
       break;
     case 'LINT':
@@ -114,10 +123,11 @@ SAVE name
       droneIntel(keyIcon);
       break;
     case 'LOAD':
+      State.source = editor.getValue();
       editor.setValue(
         localStorage.getItem(PARAMS[0] ? 'stash-' + PARAMS[0] : 'stash-main')
       );
-      playSound(2);
+      playSound(1);
       droneIntel(keyIcon);
       consoleElement.value = '';
       break;
@@ -132,12 +142,14 @@ SAVE name
 
       break;
     case 'DELETE':
+      State.source = editor.getValue();
       localStorage.removeItem(PARAMS[0] ? 'stash-' + PARAMS[0] : 'stash-main');
       consoleElement.value = '';
       playSound(5);
       droneIntel(keyIcon);
       break;
     case 'DROP':
+      State.source = editor.getValue();
       for (let i = 0; i < localStorage.length; ++i) {
         const key = localStorage.key(i);
         if (key.includes('stash-')) localStorage.removeItem(key);
@@ -208,8 +220,16 @@ SAVE name
         State.topLevel = '';
       }
       break;
+    case 'BACK':
+      editor.setValue(State.source);
+      playSound(5);
+      droneIntel(keyIcon);
+      consoleElement.value = '';
+      break;
     case 'HELP':
+      State.source = editor.getValue();
       editor.setValue(`/* 
+ BACK: go back to the code
  HELP: list these commands
  EMPTY: clears the editor content
  SAVE: save in starage
@@ -225,11 +245,9 @@ SAVE name
  PRETTY format code
  LICENSE read license info
 */`);
-      playSound(2);
-      droneIntel(alertIcon);
-
+      playSound(4);
+      droneIntel(questionIcon);
       consoleElement.value = '';
-
       break;
     default:
       if (CMD.trim()) printErrors(CMD + ' does not exist!');
