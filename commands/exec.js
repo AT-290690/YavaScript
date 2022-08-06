@@ -32,8 +32,20 @@ export const execute = async CONSOLE => {
       run();
       consoleElement.value = '';
       break;
-
     case 'ABOUT':
+      editor.setValue(`/* 
+  Notepad.js
+
+  ✨ Features ✨
+
+  * Write and Run simple JavaScript snippets
+  * Store your snippets in browser storage
+  * Share existing github snippets (gysts)
+  * Hide certain parts of the snippets
+  
+*/`);
+      break;
+    case 'LICENSE':
       editor.setValue(`/*
   MIT License
 
@@ -76,6 +88,29 @@ export const execute = async CONSOLE => {
           debug();
         } else consoleElement.value = 'Provide a lint option on/off';
       }
+      break;
+    case 'LIST':
+      const out = [];
+      for (let i = 0; i < localStorage.length; ++i) {
+        const key = localStorage.key(i);
+        if (key.includes('stash-')) out.push(key.split('stash-')[1]);
+      }
+      editor.setValue(
+        out.length
+          ? `/*
+Code stash: 
+
+${out.join('\n')}
+
+LOAD name
+*/`
+          : `/* 
+Your code stash is empty...
+
+SAVE name
+*/`
+      );
+      playSound(3);
       break;
     case 'LOAD':
       editor.setValue(
@@ -166,6 +201,12 @@ export const execute = async CONSOLE => {
     // case 'APP':
     //   window.open().document.write(await execute({ value: '_COMPILE' }));
     //break;
+    case 'UNVEIL':
+      if (State.topLevel.length) {
+        editor.setValue(`${State.topLevel};\n${editor.getValue()}`);
+        State.topLevel = '';
+      }
+      break;
     case 'HELP':
       editor.setValue(`/* 
  HELP: list these commands
@@ -174,13 +215,14 @@ export const execute = async CONSOLE => {
  LOAD load from storage
  DELETE remove from storage
  DROP drop all storage
+ LIST list stash content
  RUN: run code 
  SOUND ON  enable sounds
  SOUND OFF dissable sounds
  LINT ON enable lint
  LINT OFF dissable lint
  PRETTY format code
- ABOUT read license info
+ LICENSE read license info
 */`);
       playSound(2);
       droneIntel(alertIcon);

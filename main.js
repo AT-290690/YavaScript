@@ -41,29 +41,7 @@ appButton.addEventListener('click', () => {
 sparkleButton.addEventListener('click', () => {
   execute({ value: 'PRETTY' });
 });
-keyButton.addEventListener('click', () => {
-  const out = [];
-  for (let i = 0; i < localStorage.length; ++i) {
-    const key = localStorage.key(i);
-    if (key.includes('stash-')) out.push(key.split('stash-')[1]);
-  }
-  editor.setValue(
-    out.length
-      ? `/*
-Code stash: 
-
-${out.join('\n')}
-
-LOAD name
-*/`
-      : `/* 
-Your code stash is empty...
-
-SAVE name
-*/`
-  );
-  playSound(3);
-});
+keyButton.addEventListener('click', () => execute({ value: 'LIST' }));
 export const editor = CodeMirror(editorContainer, {});
 
 editorContainer.addEventListener(
