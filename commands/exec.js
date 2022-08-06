@@ -96,7 +96,11 @@ export const execute = async CONSOLE => {
           droneIntel(alertIcon);
           playSound(1);
           debug();
-        } else consoleElement.value = 'Provide a lint option on/off';
+        } else if (!inp) {
+          consoleElement.value = 'Provide a lint option on/off';
+        } else {
+          consoleElement.value = 'LINT ' + (State.settings.lint ? 'OFF' : 'ON');
+        }
       }
       break;
     case 'LIST':
