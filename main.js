@@ -100,7 +100,7 @@ editor.setSize(
 const urlParams = new URLSearchParams(window.location.search);
 
 if (urlParams.has('gist')) {
-  fetch(`${GIST}${urlParams.get('gist')}`)
+  fetch(`${GIST}${urlParams.get('g')}`)
     .then(buffer => {
       if (buffer.status >= 400)
         return printErrors('Request failed with status ' + buffer.status);
