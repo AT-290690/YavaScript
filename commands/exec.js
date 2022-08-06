@@ -218,9 +218,6 @@ SAVE name
       }
       droneIntel(alertIcon);
       break;
-    // case 'APP':
-    //   window.open().document.write(await execute({ value: '_COMPILE' }));
-    //break;
     case 'UNVEIL':
       if (State.topLevel.length) {
         editor.setValue(`${State.topLevel};\n${editor.getValue()}`);
@@ -249,16 +246,16 @@ SAVE name
  RUN: run code 
  EMPTY: clears the editor content
  SAVE: save in starage
- LOAD load from storage
- DELETE remove from storage
- DROP drop all storage
- LIST list stash content
- SOUND ON  enable sounds
- SOUND OFF dissable sounds
- LINT ON enable lint
- LINT OFF dissable lint
- PRETTY format code
- LICENSE read license info
+ LOAD: load from storage
+ DELETE: remove from storage
+ DROP: drop all storage
+ LIST: list stash content
+ SOUND ON:  enable sounds
+ SOUND OFF: dissable sounds
+ LINT ON: enable lint
+ LINT OFF: dissable lint
+ PRETTY: format code
+ LICENSE: read license info
  ----------------------------
 */`);
       playSound(4);
