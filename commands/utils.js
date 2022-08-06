@@ -90,7 +90,7 @@ export const playSound = index => {
       sound.pause();
       sound.currentTime = 0;
     });
-    sounds[index].play();
+    setTimeout(() => sounds[index].play());
   }
 };
 export const exe = (source, params) => {
