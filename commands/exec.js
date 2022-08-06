@@ -111,6 +111,7 @@ SAVE name
 */`
       );
       playSound(3);
+      droneIntel(keyIcon);
       break;
     case 'LOAD':
       editor.setValue(
