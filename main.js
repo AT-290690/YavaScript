@@ -16,8 +16,10 @@ export const focusButton = document.getElementById('focus-button');
 export const keyButton = document.getElementById('key');
 export const appButton = document.getElementById('app-button');
 export const fullRunButton = document.getElementById('full-run');
-export const alertIcon = document.getElementById('alert');
-export const errorIcon = document.getElementById('error');
+export const alertIcon = document.getElementById('alert-drone-icon');
+export const errorIcon = document.getElementById('error-drone-icon');
+export const sparkleIcon = document.getElementById('sparkle-drone-icon');
+export const keyIcon = document.getElementById('key-drone-icon');
 export const sparkleButton = document.getElementById('sparkle');
 export const debugButt = document.getElementById('debug-button');
 
@@ -108,7 +110,7 @@ if (urlParams.has('g')) {
     })
     .then(gist => {
       const topLevel = extractTopLevel(gist, 'vanish');
-      if (topLevel.length) State.topLevel = topLevel + '\n';
+      State.topLevel = topLevel.length ? topLevel + '\n' : '';
       editor.setValue(
         topLevel.length
           ? gist.replace(`//<vanish>${topLevel}</vanish>`, '').trimStart()

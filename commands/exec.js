@@ -1,7 +1,20 @@
 import { GIST, API, APP } from '../config.js';
-import { consoleElement } from '../main.js';
+import {
+  alertIcon,
+  consoleElement,
+  errorIcon,
+  sparkleIcon,
+  keyIcon
+} from '../main.js';
 import { editor } from '../main.js';
-import { run, printErrors, playSound, State, debug } from './utils.js';
+import {
+  run,
+  printErrors,
+  playSound,
+  State,
+  debug,
+  droneIntel
+} from './utils.js';
 
 export const execute = async CONSOLE => {
   consoleElement.classList.remove('error_line');
@@ -12,7 +25,8 @@ export const execute = async CONSOLE => {
     case 'EMPTY':
       editor.setValue('');
       consoleElement.value = '';
-      playSound(0);
+      playSound(5);
+      droneIntel(sparkleIcon);
       break;
     case 'RUN':
       run();
@@ -68,6 +82,7 @@ export const execute = async CONSOLE => {
         localStorage.getItem(PARAMS[0] ? 'stash-' + PARAMS[0] : 'stash-main')
       );
       playSound(2);
+      droneIntel(keyIcon);
       consoleElement.value = '';
       break;
     case 'SAVE':
@@ -76,13 +91,15 @@ export const execute = async CONSOLE => {
         PARAMS[0] ? 'stash-' + PARAMS[0] : 'stash-main',
         editor.getValue()
       );
-      playSound(4);
+      playSound(6);
+      droneIntel(keyIcon);
 
       break;
     case 'DELETE':
       localStorage.removeItem(PARAMS[0] ? 'stash-' + PARAMS[0] : 'stash-main');
       consoleElement.value = '';
       playSound(5);
+      droneIntel(keyIcon);
       break;
     case 'DROP':
       for (let i = 0; i < localStorage.length; ++i) {
@@ -91,6 +108,7 @@ export const execute = async CONSOLE => {
       }
       consoleElement.value = '';
       editor.setValue('');
+      droneIntel(keyIcon);
       playSound(5);
       break;
     case 'SOUND':
@@ -118,6 +136,7 @@ export const execute = async CONSOLE => {
     case 'PRETTY':
       editor.setValue(js_beautify(editor.getValue(), State.settings.beautify));
       playSound(4);
+      droneIntel(sparkleIcon);
       break;
     // case 'DOWNLOAD':
     //   {
@@ -142,7 +161,7 @@ export const execute = async CONSOLE => {
       } else {
         consoleElement.value = 'Paste a link from RAW github gist here!';
       }
-
+      droneIntel(alertIcon);
       break;
     // case 'APP':
     //   window.open().document.write(await execute({ value: '_COMPILE' }));
@@ -164,6 +183,7 @@ export const execute = async CONSOLE => {
  ABOUT read license info
 */`);
       playSound(2);
+      droneIntel(alertIcon);
 
       consoleElement.value = '';
 
@@ -171,6 +191,7 @@ export const execute = async CONSOLE => {
     default:
       if (CMD.trim()) printErrors(CMD + ' does not exist!');
       else consoleElement.value = '';
+      droneIntel(errorIcon);
       playSound(0);
       break;
   }

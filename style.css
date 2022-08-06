@@ -66,8 +66,8 @@ body {
   height: 100vh;
 }
 #console:focus {
+  color: var(--icons);
   background-color: var(--background-primary);
-  color: var(--color-fiftly);
 }
 #console {
   outline: none;
@@ -81,6 +81,7 @@ body {
   /* pointer-events: none; */
   bottom: 0;
 }
+
 .success_line,
 .error_line,
 .info_line,
@@ -136,9 +137,13 @@ body {
   stroke: var(--icons);
 }
 #header {
-  right: 10px;
-  bottom: 15px;
-  height: 30px;
+  right: 0px;
+  bottom: 10px;
+  height: 50px;
+  border: none;
+  padding-left: 10px;
+  width: 140px;
+  border-left: 1px solid var(--border);
   /* height: 30px;
   min-width: 300px;
   max-width: 400px; */
@@ -146,14 +151,12 @@ body {
   display: flex;
   align-items: center;
 
-  border: none;
-  background-color: transparent;
+  background-color: var(--background-primary);
   /* border-bottom: solid var(--border-width) var(--comment); */
   position: fixed;
   z-index: 1000;
 }
-#alert,
-#error,
+.droneIcon,
 #full-run {
   cursor: pointer;
   bottom: 0px;
@@ -165,8 +168,7 @@ body {
   z-index: 1000;
   animation: float 2s ease-in-out infinite;
 }
-#alert,
-#error {
+.droneIcon {
   bottom: 50px;
   left: 0px;
   visibility: hidden;
