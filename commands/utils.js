@@ -1,4 +1,4 @@
-import { editor } from '../main.js';
+import { editor, sparkleIcon } from '../main.js';
 import { consoleElement, alertIcon, errorIcon } from '../main.js';
 export const print = function (...values) {
   values.forEach(
@@ -59,12 +59,16 @@ export const extractTopLevel = (source, tag) => {
 
 export const debug = () => {
   if (!State.settings.lint) {
-    State.settings.lint = true;
     editor.switchInstance({
       lint: true,
       doc: editor.getValue(),
       callback: () => {
-        setTimeout(() => debug(), 2000);
+        setTimeout(() => {
+          State.settings.lint = true;
+          debug();
+          droneIntel(sparkleIcon);
+          playSound(3);
+        }, 2000);
       }
     });
   }

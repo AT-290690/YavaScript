@@ -5,7 +5,8 @@ import {
   errorIcon,
   sparkleIcon,
   keyIcon,
-  questionIcon
+  questionIcon,
+  xIcon
 } from '../main.js';
 import { editor } from '../main.js';
 import {
@@ -28,7 +29,7 @@ export const execute = async CONSOLE => {
       editor.setValue('');
       consoleElement.value = '';
       playSound(5);
-      droneIntel(sparkleIcon);
+      droneIntel(xIcon);
       break;
     case 'RUN':
       run();
@@ -83,17 +84,17 @@ export const execute = async CONSOLE => {
     case 'LINT':
       {
         const inp = PARAMS[0]?.toUpperCase();
-        if (inp === 'OFF') {
-          playSound(5);
-
+        if (inp === 'OFF' && State.settings.lint) {
           State.settings.lint = false;
           editor.switchInstance({
             lint: false,
             doc: editor.getValue()
           });
-        } else if (inp === 'ON') {
-          playSound(3);
-
+          droneIntel(xIcon);
+          playSound(5);
+        } else if (inp === 'ON' && !State.settings.lint) {
+          droneIntel(alertIcon);
+          playSound(1);
           debug();
         } else consoleElement.value = 'Provide a lint option on/off';
       }
@@ -146,7 +147,7 @@ SAVE name
       localStorage.removeItem(PARAMS[0] ? 'stash-' + PARAMS[0] : 'stash-main');
       consoleElement.value = '';
       playSound(5);
-      droneIntel(keyIcon);
+      droneIntel(xIcon);
       break;
     case 'DROP':
       State.source = editor.getValue();
@@ -156,7 +157,7 @@ SAVE name
       }
       consoleElement.value = '';
       editor.setValue('');
-      droneIntel(keyIcon);
+      droneIntel(xIcon);
       playSound(5);
       break;
     case 'SOUND':
@@ -164,11 +165,13 @@ SAVE name
         case 'ON':
           State.mute = 0;
           localStorage.setItem('mute', 0);
+          droneIntel(alertIcon);
           break;
 
         case 'OFF':
           State.mute = 1;
           localStorage.setItem('mute', 1);
+          droneIntel(xIcon);
           break;
       }
       break;
@@ -218,6 +221,8 @@ SAVE name
       if (State.topLevel.length) {
         editor.setValue(`${State.topLevel};\n${editor.getValue()}`);
         State.topLevel = '';
+        droneIntel(keyIcon);
+        playSound(5);
       }
       break;
     case 'BACK':
@@ -229,21 +234,28 @@ SAVE name
     case 'HELP':
       State.source = editor.getValue();
       editor.setValue(`/* 
+-----------------------------
+ Press on the drone - run code
+ Press ctrl/command + s - run code
+-----------------------------
+ Enter a command in the console
+ ---------[COMMANDS]---------
  BACK: go back to the code
  HELP: list these commands
+ RUN: run code 
  EMPTY: clears the editor content
  SAVE: save in starage
  LOAD load from storage
  DELETE remove from storage
  DROP drop all storage
  LIST list stash content
- RUN: run code 
  SOUND ON  enable sounds
  SOUND OFF dissable sounds
  LINT ON enable lint
  LINT OFF dissable lint
  PRETTY format code
  LICENSE read license info
+ ----------------------------
 */`);
       playSound(4);
       droneIntel(questionIcon);

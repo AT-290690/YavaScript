@@ -21,6 +21,7 @@ export const errorIcon = document.getElementById('error-drone-icon');
 export const sparkleIcon = document.getElementById('sparkle-drone-icon');
 export const keyIcon = document.getElementById('key-drone-icon');
 export const questionIcon = document.getElementById('question-drone-icon');
+export const xIcon = document.getElementById('x-drone-icon');
 export const sparkleButton = document.getElementById('sparkle');
 export const debugButt = document.getElementById('debug-button');
 
