@@ -95,6 +95,6 @@ if (urlParams.has('g')) {
           : gist
       );
     })
-    .then(() => run())
+    .then(() => (urlParams.has('r') ? run() : null))
     .catch(err => printErrors(err));
 }
