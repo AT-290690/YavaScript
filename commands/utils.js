@@ -86,11 +86,15 @@ for (const sound of document.getElementsByTagName('audio')) {
 }
 export const playSound = index => {
   if (!State.mute) {
-    sounds.forEach(sound => {
-      sound.pause();
-      sound.currentTime = 0;
+    sounds.forEach((sound, i) => {
+      if (i === index) {
+        sound.currentTime = 0;
+      } else {
+        sound.pause();
+        sound.currentTime = 0;
+      }
     });
-    setTimeout(() => sounds[index].play());
+    sounds[index].play();
   }
 };
 export const exe = (source, params) => {
