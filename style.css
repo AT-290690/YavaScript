@@ -1,13 +1,13 @@
 :root {
   --gutters: #ebe7e5;
-  --comment: #3e4d67;
+  --comment: #555c77;
   --linenumbers: #3e4d67;
   --border: #6b84b0;
-  --background-primary: #0f0f0f;
-  --background-secondary: #b578ff58;
+  --background-primary: #181a21;
+  --background-secondary: #313343;
   --color-primary: #809ac6;
   --color-secondary: #42c6ff;
-  --color-thirdly: #b578ff;
+  --color-thirdly: #f8f8f0;
   --color-fourtly: #75ff91;
   --color-fiftly: #2eff85;
   --gutters-border: 1px solid transparent;
@@ -17,28 +17,28 @@
   --success: #6de46d;
   --icons: #cae5f2;
   --progress: #42c6ff;
-  --def: #f0b972;
+  --def: #7e7edd;
   --dec: #42c6ff;
-  --classname: #7088f4;
-  --control: #58e1df;
-  --property: #bd86f8;
-  --atom: #e24488;
-  --number: #979af7;
-  --string: #74d3ff;
+  --classname: #f4d6b2;
+  --control: #7e7edd;
+  --property: #eaebed;
+  --atom: #f14590;
+  --number: #dda2f6;
+  --string: #9aefea;
   --tag: #9092de;
-  --unit: #62f8ce;
-  --color: #ff8bf7;
-  --var: #cae5f2;
-  --keyword: #ef76e9;
+  --unit: #dda2f6;
+  --color: #93ddfb;
+  --var: #85b1e0;
+  --keyword: #7e7edd;
   /* --keyword: #d976ef; */
   --self: #4c95f6;
   --separator: #a4b1dd;
-  --special: #6ad1e4;
-  --operator: #979af7;
-  --type: #37d2d2;
-  --bracket: #6b84b0;
+  --special: #f5faff;
+  --operator: #80bdc6;
+  --type: #a571f4;
+  --bracket: #ffc32b;
   --meta: #4f73f6;
-  --regexp: #f1628a;
+  --regexp: #93ddfb;
   --font-family: 'Fantastic';
   --drone1: #833783;
   --drone2: orchid;
@@ -253,4 +253,11 @@ input:focus {
 .cm-completionMatchedText,
 .cm-completionDetail {
   font-family: var(--font-family);
+}
+
+.cm-searchMatch {
+  background-color: #686971be !important;
+}
+.cm-searchMatch-selected {
+  background-color: #de61b08e !important;
 }
