@@ -72,3 +72,4 @@ editor.setSize(
   document.body.getBoundingClientRect().width,
   document.body.getBoundingClientRect().height - 70
 );
+consoleElement.setAttribute('placeholder', 'enter HELP');
