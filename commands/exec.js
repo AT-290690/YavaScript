@@ -132,7 +132,7 @@ SAVE name
       editor.setValue(
         localStorage.getItem(PARAMS[0] ? 'stash-' + PARAMS[0] : 'stash-main')
       );
-      playSound(1);
+      playSound(3);
       droneIntel(keyIcon);
       consoleElement.value = '';
       break;

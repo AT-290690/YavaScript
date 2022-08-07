@@ -101,7 +101,7 @@ export const exe = (source, params) => {
   try {
     const result = new Function(`${params.topLevel};${source}`)();
     droneIntel(alertIcon);
-    playSound(1);
+    playSound(6);
     return result;
   } catch (err) {
     droneIntel(errorIcon);

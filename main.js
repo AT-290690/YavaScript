@@ -38,7 +38,7 @@ debugButt.addEventListener('click', () =>
 fullRunButton.addEventListener('click', () => run());
 appButton.addEventListener('click', () => {
   execute({ value: 'LINK ' + consoleElement.value });
-  playSound(6);
+  playSound(1);
 });
 sparkleButton.addEventListener('click', () => {
   execute({ value: 'PRETTY' });
