@@ -104,10 +104,10 @@ export const exe = (source, params) => {
     playSound(6);
     return result;
   } catch (err) {
-    droneIntel(errorIcon);
     consoleElement.classList.remove('info_line');
     consoleElement.classList.add('error_line');
     consoleElement.value = consoleElement.value.trim() || err + ' ';
+    droneIntel(errorIcon);
     playSound(0);
   }
 };

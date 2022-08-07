@@ -36,6 +36,7 @@ if (urlParams.has('g')) {
       return buffer.text();
     })
     .then(gist => {
+      State.mute = true;
       const topLevel = extractTopLevel(gist, 'vanish');
       State.topLevel = topLevel.length ? topLevel + '\n' : '';
       editor.setValue(
@@ -45,6 +46,7 @@ if (urlParams.has('g')) {
       );
     })
     .then(() => (urlParams.has('r') ? run() : null))
+    .finally(() => (State.mute = +localStorage.getItem('mute')))
     .catch(err => printErrors(err));
 }
 
