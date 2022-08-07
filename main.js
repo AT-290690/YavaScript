@@ -8,7 +8,7 @@ export const headerContainer = document.getElementById('header');
 export const focusButton = document.getElementById('focus-button');
 export const keyButton = document.getElementById('key');
 export const appButton = document.getElementById('gist-link');
-export const fullRunButton = document.getElementById('drone');
+export const droneButton = document.getElementById('drone');
 export const alertIcon = document.getElementById('alert-drone-icon');
 export const errorIcon = document.getElementById('error-drone-icon');
 export const formatterIcon = document.getElementById('formatter-drone-icon');
@@ -28,7 +28,7 @@ debugButt.addEventListener('click', () =>
     ? execute({ value: 'LINT ON' })
     : execute({ value: 'LINT OFF' })
 );
-fullRunButton.addEventListener('click', () => run());
+droneButton.addEventListener('click', () => run());
 appButton.addEventListener('click', () => {
   execute({ value: 'LINK ' + consoleElement.value });
   playSound(1);
