@@ -14,7 +14,8 @@ import {
   playSound,
   State,
   debug,
-  droneIntel
+  droneIntel,
+  extractTopLevel
 } from './utils.js';
 
 const href = window.location.href.split('/').filter(Boolean);
