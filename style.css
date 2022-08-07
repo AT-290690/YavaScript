@@ -156,7 +156,7 @@ body {
   z-index: 1000;
 }
 .droneIcon,
-#full-run {
+#drone {
   cursor: pointer;
   bottom: 0px;
   left: 5px;
@@ -194,7 +194,7 @@ body {
 }
 
 /* #run,
-#full-run,
+#drone,
 #add-button,
 #featured,
 #key {

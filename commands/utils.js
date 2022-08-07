@@ -1,4 +1,4 @@
-import { editor, sparkleIcon } from '../main.js';
+import { editor, formatterIcon } from '../main.js';
 import { consoleElement, alertIcon, errorIcon } from '../main.js';
 export const print = function (...values) {
   values.forEach(
@@ -66,7 +66,7 @@ export const debug = () => {
         setTimeout(() => {
           State.settings.lint = true;
           debug();
-          droneIntel(sparkleIcon);
+          droneIntel(formatterIcon);
           playSound(3);
         }, 2000);
       }

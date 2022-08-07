@@ -1,9 +1,8 @@
-import { GIST, API, APP } from '../config.js';
 import {
   alertIcon,
   consoleElement,
   errorIcon,
-  sparkleIcon,
+  formatterIcon,
   keyIcon,
   questionIcon,
   xIcon
@@ -17,6 +16,36 @@ import {
   debug,
   droneIntel
 } from './utils.js';
+
+const href = window.location.href.split('/').filter(Boolean);
+const envi = href.slice(1, 2);
+const protocol = envi[0].includes('localhost') ? 'http://' : 'https://';
+
+const API = protocol + envi.join('/');
+const APP = 'YavaScript';
+const GIST = 'https://gist.githubusercontent.com/';
+
+const urlParams = new URLSearchParams(window.location.search);
+
+if (urlParams.has('g')) {
+  fetch(`${GIST}${urlParams.get('g')}`)
+    .then(buffer => {
+      if (buffer.status >= 400)
+        return printErrors('Request failed with status ' + buffer.status);
+      return buffer.text();
+    })
+    .then(gist => {
+      const topLevel = extractTopLevel(gist, 'vanish');
+      State.topLevel = topLevel.length ? topLevel + '\n' : '';
+      editor.setValue(
+        (State.source = topLevel.length
+          ? gist.replace(`//<vanish>${topLevel}</vanish>`, '').trimStart()
+          : gist)
+      );
+    })
+    .then(() => (urlParams.has('r') ? run() : null))
+    .catch(err => printErrors(err));
+}
 
 export const execute = async CONSOLE => {
   consoleElement.classList.remove('error_line');
@@ -93,9 +122,11 @@ export const execute = async CONSOLE => {
           droneIntel(xIcon);
           playSound(5);
         } else if (inp === 'ON' && !State.settings.lint) {
-          droneIntel(alertIcon);
-          playSound(1);
-          debug();
+          execute({ value: 'UNVEIL' }).then(() => {
+            playSound(1);
+            droneIntel(alertIcon);
+            debug();
+          });
         } else if (!inp) {
           consoleElement.value = 'Provide a lint option on/off';
         } else {
@@ -191,7 +222,7 @@ SAVE name
     case 'PRETTY':
       editor.setValue(js_beautify(editor.getValue(), State.settings.beautify));
       playSound(4);
-      droneIntel(sparkleIcon);
+      droneIntel(formatterIcon);
       break;
     // case 'DOWNLOAD':
     //   {

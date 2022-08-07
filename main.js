@@ -1,28 +1,21 @@
 import { CodeMirror } from './libs/editor/editor.bundle.js';
 import { execute } from './commands/exec.js';
-import {
-  extractTopLevel,
-  playSound,
-  printErrors,
-  run,
-  State
-} from './commands/utils.js';
-import { GIST } from './config.js';
+import { playSound, run, State } from './commands/utils.js';
 export const consoleElement = document.getElementById('console');
 export const editorContainer = document.getElementById('editor-container');
 export const mainContainer = document.getElementById('main-container');
 export const headerContainer = document.getElementById('header');
 export const focusButton = document.getElementById('focus-button');
 export const keyButton = document.getElementById('key');
-export const appButton = document.getElementById('app-button');
-export const fullRunButton = document.getElementById('full-run');
+export const appButton = document.getElementById('gist-link');
+export const fullRunButton = document.getElementById('drone');
 export const alertIcon = document.getElementById('alert-drone-icon');
 export const errorIcon = document.getElementById('error-drone-icon');
-export const sparkleIcon = document.getElementById('sparkle-drone-icon');
+export const formatterIcon = document.getElementById('formatter-drone-icon');
 export const keyIcon = document.getElementById('key-drone-icon');
 export const questionIcon = document.getElementById('question-drone-icon');
 export const xIcon = document.getElementById('x-drone-icon');
-export const sparkleButton = document.getElementById('sparkle');
+export const formatterButton = document.getElementById('formatter');
 export const debugButt = document.getElementById('debug-button');
 
 export const compositionContainer = document.getElementById(
@@ -40,7 +33,7 @@ appButton.addEventListener('click', () => {
   execute({ value: 'LINK ' + consoleElement.value });
   playSound(1);
 });
-sparkleButton.addEventListener('click', () => {
+formatterButton.addEventListener('click', () => {
   execute({ value: 'PRETTY' });
 });
 keyButton.addEventListener('click', () => execute({ value: 'LIST' }));
@@ -79,24 +72,3 @@ editor.setSize(
   document.body.getBoundingClientRect().width,
   document.body.getBoundingClientRect().height - 70
 );
-const urlParams = new URLSearchParams(window.location.search);
-
-if (urlParams.has('g')) {
-  fetch(`${GIST}${urlParams.get('g')}`)
-    .then(buffer => {
-      if (buffer.status >= 400)
-        return printErrors('Request failed with status ' + buffer.status);
-      return buffer.text();
-    })
-    .then(gist => {
-      const topLevel = extractTopLevel(gist, 'vanish');
-      State.topLevel = topLevel.length ? topLevel + '\n' : '';
-      editor.setValue(
-        (State.source = topLevel.length
-          ? gist.replace(`//<vanish>${topLevel}</vanish>`, '').trimStart()
-          : gist)
-      );
-    })
-    .then(() => (urlParams.has('r') ? run() : null))
-    .catch(err => printErrors(err));
-}
