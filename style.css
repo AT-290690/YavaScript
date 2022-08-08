@@ -246,9 +246,7 @@ input:focus {
     transform: translatey(0px);
   }
 }
-.cm-scroller {
-  padding-left: 10px;
-}
+
 .cm-completionLabel,
 .cm-completionMatchedText,
 .cm-completionDetail {
