@@ -165,7 +165,6 @@ body {
   background-color: transparent;
   position: fixed;
   z-index: 1000;
-  animation: float 2s ease-in-out infinite;
 }
 .droneIcon {
   bottom: 50px;
@@ -258,4 +257,56 @@ input:focus {
 }
 .cm-searchMatch-selected {
   background-color: #de61b08e !important;
+}
+.float {
+  animation: float 2s ease-in-out infinite;
+}
+.shake {
+  animation: shake-animation 3.52s ease infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes shake-animation {
+  0% {
+    transform: translate(0, 0);
+  }
+  1.78571% {
+    transform: translate(5px, 0);
+  }
+  3.57143% {
+    transform: translate(0, 0);
+  }
+  5.35714% {
+    transform: translate(5px, 0);
+  }
+  7.14286% {
+    transform: translate(0, 0);
+  }
+  8.92857% {
+    transform: translate(5px, 0);
+  }
+  10.71429% {
+    transform: translate(0, 0);
+  }
+  90% {
+    transform: translate(0, 0);
+  }
+  91.78571% {
+    transform: translate(5px, 0);
+  }
+  93.57143% {
+    transform: translate(0, 0);
+  }
+  95.35714% {
+    transform: translate(5px, 0);
+  }
+  97.14286% {
+    transform: translate(0, 0);
+  }
+  98.92857% {
+    transform: translate(5px, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
 }

@@ -1,4 +1,4 @@
-import { editor, formatterIcon } from '../main.js';
+import { droneButton, editor, formatterIcon } from '../main.js';
 import { consoleElement, alertIcon, errorIcon } from '../main.js';
 export const print = function (...values) {
   values.forEach(
@@ -100,6 +100,7 @@ export const playSound = index => {
 export const exe = (source, params) => {
   try {
     const result = new Function(`${params.topLevel};${source}`)();
+    droneButton.classList.remove('shake');
     droneIntel(alertIcon);
     playSound(6);
     return result;
@@ -107,6 +108,8 @@ export const exe = (source, params) => {
     consoleElement.classList.remove('info_line');
     consoleElement.classList.add('error_line');
     consoleElement.value = consoleElement.value.trim() || err + ' ';
+    droneButton.classList.add('shake');
+
     droneIntel(errorIcon);
     playSound(0);
   }
