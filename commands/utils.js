@@ -108,6 +108,7 @@ export const exe = (source, params) => {
     consoleElement.classList.remove('info_line');
     consoleElement.classList.add('error_line');
     consoleElement.value = consoleElement.value.trim() || err + ' ';
+    droneButton.classList.remove('shake');
     droneButton.classList.add('shake');
 
     droneIntel(errorIcon);
