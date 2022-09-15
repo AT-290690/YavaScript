@@ -1,5 +1,12 @@
-import { droneButton, editor, formatterIcon } from '../main.js';
-import { consoleElement, alertIcon, errorIcon } from '../main.js';
+import {
+  droneButton,
+  editor,
+  formatterIcon,
+  consoleElement,
+  alertIcon,
+  errorIcon,
+  createPopUp
+} from '../main.js';
 export const print = function (...values) {
   values.forEach(
     x => (consoleElement.value += `${JSON.stringify(x) ?? undefined}`)
@@ -115,9 +122,24 @@ export const exe = (source, params) => {
     playSound(0);
   }
 };
-// const preprocess = source =>
-//   source
-
+globalThis._logger = (disable = 0) => {
+  if (disable) return (msg, count) => {};
+  const popup = createPopUp();
+  popup.setSize(window.innerWidth - 2, window.innerHeight / 3);
+  let count = 0;
+  return (msg, comment = '', space) => {
+    const current = popup.getValue();
+    popup.setValue(
+      `${current ? current + '\n' : ''}// ${count++} ${comment}
+${msg !== undefined ? JSON.stringify(msg, null, space) : VOID}`
+    );
+    popup.setCursor(
+      popup.posToOffset({ ch: 0, line: popup.lineCount() - 1 }),
+      true
+    );
+    return msg;
+  };
+};
 export const run = () => {
   consoleElement.classList.add('info_line');
   consoleElement.classList.remove('error_line');

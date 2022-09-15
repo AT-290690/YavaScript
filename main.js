@@ -17,7 +17,14 @@ export const questionIcon = document.getElementById('question-drone-icon');
 export const xIcon = document.getElementById('x-drone-icon');
 export const formatterButton = document.getElementById('formatter');
 export const debugButt = document.getElementById('debug-button');
+export const popupContainer = document.getElementById('popup-container');
 
+export const createPopUp = () => {
+  popupContainer.innerHTML = '';
+  const popup = CodeMirror(popupContainer);
+  popupContainer.style.display = 'block';
+  return popup;
+};
 export const compositionContainer = document.getElementById(
   'composition-container'
 );

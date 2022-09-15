@@ -310,3 +310,16 @@ input:focus {
     transform: translate(0, 0);
   }
 }
+
+#popup-container {
+  position: absolute;
+  bottom: 70px;
+  left: 0px;
+  width: fit-content;
+  z-index: 1000;
+  color: white;
+  background-color: transparent;
+  /* padding: 10px; */
+  display: none;
+  border: solid 1px var(--border);
+}
