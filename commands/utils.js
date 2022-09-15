@@ -131,7 +131,7 @@ globalThis._logger = (disable = 0) => {
     const current = popup.getValue();
     popup.setValue(
       `${current ? current + '\n' : ''}// ${count++} ${comment}
-${msg !== undefined ? JSON.stringify(msg, null, space) : VOID}`
+${msg !== undefined ? JSON.stringify(msg, null, space) : undefined}`
     );
     popup.setCursor(
       popup.posToOffset({ ch: 0, line: popup.lineCount() - 1 }),
