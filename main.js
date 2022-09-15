@@ -63,6 +63,10 @@ document.addEventListener('keydown', e => {
     if (activeElement === consoleElement) {
       execute(consoleElement);
     }
+  } else if (e.key === 'Escape') {
+    e.preventDefault();
+    e.stopPropagation();
+    popupContainer.style.display = 'none';
   }
 });
 
