@@ -57,6 +57,7 @@ document.addEventListener('keydown', e => {
     e = e || window.event;
     e.preventDefault();
     e.stopPropagation();
+    popupContainer.style.display = 'none';
     // (localStorage.getItem('imports') ?? '')
     run();
   } else if (e.key === 'Enter') {
