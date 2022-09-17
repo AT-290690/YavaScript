@@ -5,7 +5,8 @@ import {
   consoleElement,
   alertIcon,
   errorIcon,
-  createPopUp
+  createPopUp,
+  createCanvas
 } from '../main.js';
 export const print = function (...values) {
   values.forEach(
@@ -139,6 +140,16 @@ ${msg !== undefined ? JSON.stringify(msg, null, space) : undefined}`
     );
     return msg;
   };
+};
+
+globalThis._canvas = (
+  w = window.innerWidth / 2,
+  h = window.innerHeight - 85
+) => {
+  const canvas = createCanvas();
+  canvas.width = w;
+  canvas.height = h;
+  return canvas;
 };
 export const run = () => {
   consoleElement.classList.add('info_line');

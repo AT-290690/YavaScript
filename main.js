@@ -18,12 +18,21 @@ export const xIcon = document.getElementById('x-drone-icon');
 export const formatterButton = document.getElementById('formatter');
 export const debugButt = document.getElementById('debug-button');
 export const popupContainer = document.getElementById('popup-container');
+export const canvasContainer = document.getElementById('canvas-container');
 
 export const createPopUp = () => {
   popupContainer.innerHTML = '';
   const popup = CodeMirror(popupContainer);
   popupContainer.style.display = 'block';
   return popup;
+};
+export const createCanvas = () => {
+  canvasContainer.innerHTML = '';
+  canvasContainer.style.display = 'block';
+
+  const canvas = document.createElement('canvas');
+  canvasContainer.appendChild(canvas);
+  return canvas;
 };
 export const compositionContainer = document.getElementById(
   'composition-container'
@@ -68,6 +77,7 @@ document.addEventListener('keydown', e => {
     e.preventDefault();
     e.stopPropagation();
     popupContainer.style.display = 'none';
+    canvasContainer.style.display = 'none';
   }
 });
 

@@ -323,3 +323,14 @@ input:focus {
   display: none;
   border: solid 1px var(--border);
 }
+#canvas-container {
+  position: absolute;
+  width: fit-content;
+  top: 5px;
+  right: 0;
+  z-index: 1000;
+  background-color: transparent;
+  /* padding: 10px; */
+  display: none;
+  border: solid 1px var(--border);
+}
