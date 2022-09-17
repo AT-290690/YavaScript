@@ -108,7 +108,7 @@ export const execute = async CONSOLE => {
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
-      */`);
+  */`);
       droneIntel(questionIcon);
       playSound(5);
 
@@ -252,6 +252,16 @@ SAVE name
       }
       droneIntel(alertIcon);
       break;
+    // case 'VANISH': {
+    //   const source = editor.getValue();
+    //   State.topLevel = extractTopLevel(source, 'vanish').join('\n').trim();
+    //   editor.setValue(
+    //     source.replace(`//<vanish>\n${State.topLevel}</vanish>`, '').trimStart()
+    //   );
+    //   droneIntel(keyIcon);
+    //   playSound(5);
+    //   return;
+    // }
     case 'UNVEIL':
       if (State.topLevel.length) {
         editor.setValue(`${State.topLevel};\n${editor.getValue()}`);

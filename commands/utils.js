@@ -141,7 +141,22 @@ ${msg !== undefined ? JSON.stringify(msg, null, space) : undefined}`
     return msg;
   };
 };
-
+globalThis._print = (disable = 0) => {
+  if (disable) return () => {};
+  const popup = createPopUp();
+  popup.setSize(window.innerWidth - 2, window.innerHeight / 3);
+  return msg => {
+    const current = popup.getValue();
+    popup.setValue(
+      `${current ? current + '\n' : ''}${msg.replace('"', '').replace("'", '')}`
+    );
+    popup.setCursor(
+      popup.posToOffset({ ch: 0, line: popup.lineCount() - 1 }),
+      true
+    );
+    return msg;
+  };
+};
 globalThis._canvas = (
   w = window.innerWidth / 2,
   h = window.innerHeight - 85
