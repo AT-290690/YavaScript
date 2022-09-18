@@ -148,7 +148,10 @@ globalThis._print = (disable = 0) => {
   return msg => {
     const current = popup.getValue();
     popup.setValue(
-      `${current ? current + '\n' : ''}${msg.replace('"', '').replace("'", '')}`
+      `${current ? current + '\n' : ''}${msg
+        .replace('"', '')
+        .replace("'", '')
+        .trim()}`
     );
     popup.setCursor(
       popup.posToOffset({ ch: 0, line: popup.lineCount() - 1 }),
