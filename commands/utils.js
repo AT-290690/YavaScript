@@ -27,6 +27,7 @@ export const correctFilePath = filename => {
   return '/' + filename.split('/').filter(Boolean).join('/');
 };
 export const State = {
+  sounds: [],
   activeWindow: null,
   isErrored: true,
   mute: localStorage.getItem('mute') ? +localStorage.getItem('mute') : 1,
@@ -87,14 +88,17 @@ export const droneIntel = icon => {
     icon.style.visibility = 'hidden';
   }, 500);
 };
-const sounds = [];
-for (const sound of document.getElementsByTagName('audio')) {
-  sound.volume = sound.volume * 0.1;
-  sounds.push(sound);
-}
+
 export const playSound = index => {
   if (!State.mute) {
-    sounds.forEach((sound, i) => {
+    if (!State.sounds.length) {
+      for (let i = 0; i < 7; i++) {
+        const sound = new Audio(`./assets/sounds/sound${i}.wav`);
+        sound.volume = sound.volume * 0.1;
+        State.sounds.push(sound);
+      }
+    }
+    State.sounds.forEach((sound, i) => {
       if (i === index) {
         sound.currentTime = 0;
       } else {
@@ -102,7 +106,7 @@ export const playSound = index => {
         sound.currentTime = 0;
       }
     });
-    sounds[index].play();
+    State.sounds[index].play();
   }
 };
 export const exe = (source, params) => {

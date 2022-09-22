@@ -204,6 +204,7 @@ SAVE name
           State.mute = 0;
           localStorage.setItem('mute', 0);
           droneIntel(alertIcon);
+          playSound(5);
           break;
 
         case 'OFF':
