@@ -6,26 +6,24 @@ import {
   alertIcon,
   errorIcon,
   createPopUp,
-  createCanvas
-} from '../main.js';
+  createCanvas,
+} from '../main.js'
 export const print = function (...values) {
   values.forEach(
-    x => (consoleElement.value += `${JSON.stringify(x) ?? undefined}`)
-  );
-  return values;
-};
-export const printErrors = errors => {
-  consoleElement.classList.remove('info_line');
-  consoleElement.classList.add('error_line');
-  //consoleElement.style.visibility = 'visible';
+    (x) => (consoleElement.value += `${JSON.stringify(x) ?? undefined}`)
+  )
+  return values
+}
+export const printErrors = (errors) => {
+  consoleElement.classList.remove('info_line')
+  consoleElement.classList.add('error_line')
+  consoleElement.value = errors
+}
 
-  consoleElement.value = errors;
-};
-
-export const correctFilePath = filename => {
-  if (!filename) return '';
-  return '/' + filename.split('/').filter(Boolean).join('/');
-};
+export const correctFilePath = (filename) => {
+  if (!filename) return ''
+  return '/' + filename.split('/').filter(Boolean).join('/')
+}
 export const State = {
   sounds: [],
   activeWindow: null,
@@ -51,134 +49,128 @@ export const State = {
       indent_inner_html: false,
       comma_first: false,
       e4x: true,
-      indent_empty_lines: false
-    }
-  }
-};
+      indent_empty_lines: false,
+    },
+  },
+}
 
 export const extractTopLevel = (source, tag) => {
-  const regex = new RegExp(`\\<${tag}\\>([\\s\\S]+?)\\<\\/${tag}>`, 'g');
+  const regex = new RegExp(`\\<${tag}\\>([\\s\\S]+?)\\<\\/${tag}>`, 'g')
   let result = [],
-    matches;
-  while ((matches = regex.exec(source))) {
-    result.push(matches[1]);
-  }
-  return result;
-};
+    matches
+  while ((matches = regex.exec(source))) result.push(matches[1])
+  return result
+}
 
 export const debug = () => {
-  if (!State.settings.lint) {
+  if (!State.settings.lint)
     editor.switchInstance({
       lint: true,
       doc: editor.getValue(),
-      callback: () => {
+      callback: () =>
         setTimeout(() => {
-          State.settings.lint = true;
-          debug();
-          droneIntel(formatterIcon);
-          playSound(3);
-        }, 2000);
-      }
-    });
-  }
-};
-export const droneIntel = icon => {
-  icon.style.visibility = 'visible';
-  setTimeout(() => {
-    icon.style.visibility = 'hidden';
-  }, 500);
-};
+          State.settings.lint = true
+          debug()
+          droneIntel(formatterIcon)
+          playSound(3)
+        }, 2000),
+    })
+}
 
-export const playSound = index => {
+export const droneIntel = (icon) => {
+  icon.style.visibility = 'visible'
+  setTimeout(() => (icon.style.visibility = 'hidden'), 500)
+}
+
+export const playSound = (index) => {
   if (!State.mute) {
     if (!State.sounds.length) {
       for (let i = 0; i < 7; i++) {
-        const sound = new Audio(`./assets/sounds/sound${i}.wav`);
-        sound.volume = sound.volume * 0.1;
-        State.sounds.push(sound);
+        const sound = new Audio(`./assets/sounds/sound${i}.wav`)
+        sound.volume = sound.volume * 0.1
+        State.sounds.push(sound)
       }
     }
     State.sounds.forEach((sound, i) => {
-      if (i === index) {
-        sound.currentTime = 0;
-      } else {
-        sound.pause();
-        sound.currentTime = 0;
+      if (i === index) sound.currentTime = 0
+      else {
+        sound.pause()
+        sound.currentTime = 0
       }
-    });
-    State.sounds[index].play();
+    })
+    State.sounds[index].play()
   }
-};
+}
 export const exe = (source, params) => {
   try {
-    const result = new Function(`${params.topLevel};${source}`)();
-    droneButton.classList.remove('shake');
-    droneIntel(alertIcon);
-    playSound(6);
-    return result;
+    const result = new Function(`${params.topLevel};${source}`)()
+    droneButton.classList.remove('shake')
+    droneIntel(alertIcon)
+    playSound(6)
+    return result
   } catch (err) {
-    consoleElement.classList.remove('info_line');
-    consoleElement.classList.add('error_line');
-    consoleElement.value = consoleElement.value.trim() || err + ' ';
-    droneButton.classList.remove('shake');
-    droneButton.classList.add('shake');
-
-    droneIntel(errorIcon);
-    playSound(0);
+    consoleElement.classList.remove('info_line')
+    consoleElement.classList.add('error_line')
+    consoleElement.value = consoleElement.value.trim() || err + ' '
+    droneButton.classList.remove('shake')
+    droneButton.classList.add('shake')
+    droneIntel(errorIcon)
+    playSound(0)
   }
-};
+}
 globalThis._logger = (disable = 0) => {
-  if (disable) return (msg, count) => {};
-  const popup = createPopUp();
-  popup.setSize(window.innerWidth - 2, window.innerHeight / 3);
-  let count = 0;
+  if (disable) return (msg, count) => {}
+  const popup = createPopUp()
+  popup.setSize(window.innerWidth - 2, window.innerHeight / 3)
+  let count = 0
   return (msg, comment = '', space) => {
-    const current = popup.getValue();
+    const current = popup.getValue()
     popup.setValue(
       `${current ? current + '\n' : ''}// ${count++} ${comment}
 ${msg !== undefined ? JSON.stringify(msg, null, space) : undefined}`
-    );
+    )
     popup.setCursor(
       popup.posToOffset({ ch: 0, line: popup.lineCount() - 1 }),
       true
-    );
-    return msg;
-  };
-};
+    )
+    return msg
+  }
+}
 globalThis._print = (disable = 0) => {
-  if (disable) return () => {};
-  const popup = createPopUp();
-  popup.setSize(window.innerWidth - 2, window.innerHeight / 3);
-  return msg => {
-    const current = popup.getValue();
+  if (disable) return () => {}
+  const popup = createPopUp()
+  popup.setSize(window.innerWidth - 2, window.innerHeight / 3)
+  return (msg) => {
+    const current = popup.getValue()
     popup.setValue(
       `${current ? current + '\n' : ''}${msg
+        .toString()
         .replace('"', '')
         .replace("'", '')
         .trim()}`
-    );
+    )
     popup.setCursor(
       popup.posToOffset({ ch: 0, line: popup.lineCount() - 1 }),
       true
-    );
-    return msg;
-  };
-};
+    )
+    return msg
+  }
+}
 globalThis._canvas = (
   w = window.innerWidth / 2,
   h = window.innerHeight - 85
 ) => {
-  const canvas = createCanvas();
-  canvas.width = w;
-  canvas.height = h;
-  return canvas;
-};
+  const canvas = createCanvas()
+  canvas.width = w
+  canvas.height = h
+  return canvas
+}
 export const run = () => {
-  consoleElement.classList.add('info_line');
-  consoleElement.classList.remove('error_line');
-  consoleElement.value = '';
-  const source = (State.source = editor.getValue());
-  const out = exe(source.trim(), { topLevel: State.topLevel });
-  if (out !== undefined) print(out);
-  return source;
-};
+  consoleElement.classList.add('info_line')
+  consoleElement.classList.remove('error_line')
+  consoleElement.value = ''
+  const source = (State.source = editor.getValue())
+  const out = exe(source.trim(), { topLevel: State.topLevel })
+  if (out !== undefined) print(out)
+  return source
+}

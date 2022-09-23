@@ -5,9 +5,9 @@ import {
   formatterIcon,
   keyIcon,
   questionIcon,
-  xIcon
-} from '../main.js';
-import { editor } from '../main.js';
+  xIcon,
+} from '../main.js'
+import { editor } from '../main.js'
 import {
   run,
   printErrors,
@@ -15,60 +15,60 @@ import {
   State,
   debug,
   droneIntel,
-  extractTopLevel
-} from './utils.js';
+  extractTopLevel,
+} from './utils.js'
 
-const href = window.location.href.split('/').filter(Boolean);
-const envi = href.slice(1, 2);
-const protocol = envi[0].includes('localhost') ? 'http://' : 'https://';
+const href = window.location.href.split('/').filter(Boolean)
+const envi = href.slice(1, 2)
+const protocol = envi[0].includes('localhost') ? 'http://' : 'https://'
 
-const API = protocol + envi.join('/');
-const APP = 'YavaScript';
-const GIST = 'https://gist.githubusercontent.com/';
+const API = protocol + envi.join('/')
+const APP = 'YavaScript'
+const GIST = 'https://gist.githubusercontent.com/'
 
-const urlParams = new URLSearchParams(window.location.search);
+const urlParams = new URLSearchParams(window.location.search)
 
 if (urlParams.has('g')) {
   fetch(`${GIST}${urlParams.get('g')}`)
-    .then(buffer => {
+    .then((buffer) => {
       if (buffer.status >= 400)
-        return printErrors('Request failed with status ' + buffer.status);
-      return buffer.text();
+        return printErrors('Request failed with status ' + buffer.status)
+      return buffer.text()
     })
-    .then(gist => {
-      State.mute = true;
-      const topLevel = extractTopLevel(gist, 'vanish');
-      State.topLevel = topLevel.length ? topLevel + '\n' : '';
+    .then((gist) => {
+      State.mute = true
+      const topLevel = extractTopLevel(gist, 'vanish')
+      State.topLevel = topLevel.length ? topLevel + '\n' : ''
       editor.setValue(
         (State.source = topLevel.length
           ? gist.replace(`//<vanish>${topLevel}</vanish>`, '').trimStart()
           : gist)
-      );
+      )
     })
     .then(() => (urlParams.has('r') ? run() : null))
     .finally(() => (State.mute = +localStorage.getItem('mute')))
-    .catch(err => printErrors(err));
+    .catch((err) => printErrors(err))
 }
 
-export const execute = async CONSOLE => {
-  consoleElement.classList.remove('error_line');
-  consoleElement.classList.add('info_line');
-  const selectedConsoleLine = CONSOLE.value.trim();
-  const [CMD, ...PARAMS] = selectedConsoleLine.split(' ');
+export const execute = async (CONSOLE) => {
+  consoleElement.classList.remove('error_line')
+  consoleElement.classList.add('info_line')
+  const selectedConsoleLine = CONSOLE.value.trim()
+  const [CMD, ...PARAMS] = selectedConsoleLine.split(' ')
   switch (CMD?.trim()?.toUpperCase()) {
     case 'EMPTY':
-      State.source = editor.getValue();
-      editor.setValue('');
-      consoleElement.value = '';
-      playSound(5);
-      droneIntel(xIcon);
-      break;
+      State.source = editor.getValue()
+      editor.setValue('')
+      consoleElement.value = ''
+      playSound(5)
+      droneIntel(xIcon)
+      break
     case 'RUN':
-      run();
-      consoleElement.value = '';
-      break;
+      run()
+      consoleElement.value = ''
+      break
     case 'ABOUT':
-      State.source = editor.getValue();
+      State.source = editor.getValue()
       editor.setValue(`/* 
   Notepad.js
 
@@ -79,13 +79,12 @@ export const execute = async CONSOLE => {
   * Share existing github snippets (gysts)
   * Hide certain parts of the snippets
   
-*/`);
-      droneIntel(questionIcon);
-      playSound(5);
-
-      break;
+*/`)
+      droneIntel(questionIcon)
+      playSound(5)
+      break
     case 'LICENSE':
-      State.source = editor.getValue();
+      State.source = editor.getValue()
       editor.setValue(`/*
   MIT License
 
@@ -108,40 +107,38 @@ export const execute = async CONSOLE => {
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
-  */`);
-      droneIntel(questionIcon);
-      playSound(5);
+  */`)
+      droneIntel(questionIcon)
+      playSound(5)
 
-      break;
+      break
     case 'LINT':
       {
-        const inp = PARAMS[0]?.toUpperCase();
+        const inp = PARAMS[0]?.toUpperCase()
         if (inp === 'OFF' && State.settings.lint) {
-          State.settings.lint = false;
+          State.settings.lint = false
           editor.switchInstance({
             lint: false,
-            doc: editor.getValue()
-          });
-          droneIntel(xIcon);
-          playSound(5);
+            doc: editor.getValue(),
+          })
+          droneIntel(xIcon)
+          playSound(5)
         } else if (inp === 'ON' && !State.settings.lint) {
           execute({ value: 'UNVEIL' }).then(() => {
-            playSound(1);
-            droneIntel(alertIcon);
-            debug();
-          });
-        } else if (!inp) {
-          consoleElement.value = 'Provide a lint option on/off';
-        } else {
-          consoleElement.value = 'LINT ' + (State.settings.lint ? 'OFF' : 'ON');
-        }
+            playSound(1)
+            droneIntel(alertIcon)
+            debug()
+          })
+        } else if (!inp) consoleElement.value = 'Provide a lint option on/off'
+        else
+          consoleElement.value = 'LINT ' + (State.settings.lint ? 'OFF' : 'ON')
       }
-      break;
+      break
     case 'LIST':
-      const out = [];
+      const out = []
       for (let i = 0; i < localStorage.length; ++i) {
-        const key = localStorage.key(i);
-        if (key.includes('stash-')) out.push(key.split('stash-')[1]);
+        const key = localStorage.key(i)
+        if (key.includes('stash-')) out.push(key.split('stash-')[1])
       }
       editor.setValue(
         out.length
@@ -157,128 +154,94 @@ Your code stash is empty...
 
 SAVE name
 */`
-      );
-      playSound(3);
-      droneIntel(keyIcon);
-      break;
+      )
+      playSound(3)
+      droneIntel(keyIcon)
+      break
     case 'LOAD':
-      State.source = editor.getValue();
+      State.source = editor.getValue()
       editor.setValue(
         localStorage.getItem(PARAMS[0] ? 'stash-' + PARAMS[0] : 'stash-main')
-      );
-      playSound(3);
-      droneIntel(keyIcon);
-      consoleElement.value = '';
-      break;
+      )
+      playSound(3)
+      droneIntel(keyIcon)
+      consoleElement.value = ''
+      break
     case 'SAVE':
-      consoleElement.value = '';
+      consoleElement.value = ''
       localStorage.setItem(
         PARAMS[0] ? 'stash-' + PARAMS[0] : 'stash-main',
         editor.getValue()
-      );
-      playSound(6);
-      droneIntel(keyIcon);
-
-      break;
+      )
+      playSound(6)
+      droneIntel(keyIcon)
+      break
     case 'DELETE':
-      State.source = editor.getValue();
-      localStorage.removeItem(PARAMS[0] ? 'stash-' + PARAMS[0] : 'stash-main');
-      consoleElement.value = '';
-      playSound(5);
-      droneIntel(xIcon);
-      break;
+      State.source = editor.getValue()
+      localStorage.removeItem(PARAMS[0] ? 'stash-' + PARAMS[0] : 'stash-main')
+      consoleElement.value = ''
+      playSound(5)
+      droneIntel(xIcon)
+      break
     case 'DROP':
-      State.source = editor.getValue();
+      State.source = editor.getValue()
       for (let i = 0; i < localStorage.length; ++i) {
-        const key = localStorage.key(i);
-        if (key.includes('stash-')) localStorage.removeItem(key);
+        const key = localStorage.key(i)
+        if (key.includes('stash-')) localStorage.removeItem(key)
       }
-      consoleElement.value = '';
-      editor.setValue('');
-      droneIntel(xIcon);
-      playSound(5);
-      break;
+      consoleElement.value = ''
+      editor.setValue('')
+      droneIntel(xIcon)
+      playSound(5)
+      break
     case 'SOUND':
       switch (PARAMS[0]?.toUpperCase()) {
         case 'ON':
-          State.mute = 0;
-          localStorage.setItem('mute', 0);
-          droneIntel(alertIcon);
-          playSound(5);
-          break;
-
+          State.mute = 0
+          localStorage.setItem('mute', 0)
+          droneIntel(alertIcon)
+          playSound(5)
+          break
         case 'OFF':
-          State.mute = 1;
-          localStorage.setItem('mute', 1);
-          droneIntel(xIcon);
-          break;
+          State.mute = 1
+          localStorage.setItem('mute', 1)
+          droneIntel(xIcon)
+          break
       }
-      break;
-    // case 'TEST':
-    //   const topLevel = extractTopLevel(editor.getValue(), 'vanish');
-    //   editor.setValue(
-    //     editor
-    //       .getValue()
-    //       .replace(`//<vanish>${(State.topLevel = topLevel)}</vanish>`, '')
-    //       .trimStart()
-    //   );
-    //   break;
+      break
     case 'PRETTY':
-      editor.setValue(js_beautify(editor.getValue(), State.settings.beautify));
-      playSound(4);
-      droneIntel(formatterIcon);
-      break;
-    // case 'DOWNLOAD':
-    //   {
-    //     const filename = PARAMS[0];
-    //     const a = document.createElement('a');
-    //     a.href = ``;
-    //     a.setAttribute('download', filename);
-    //     a.click();
-    //     consoleElement.value = '';
-    //   }
-    //   break;
-
+      editor.setValue(js_beautify(editor.getValue(), State.settings.beautify))
+      playSound(4)
+      droneIntel(formatterIcon)
+      break
     case 'LINK':
       if (
         PARAMS[0] &&
         consoleElement.value !== 'Paste a link from RAW github gist here!'
       ) {
-        const gist = PARAMS[0].split(GIST)[1];
+        const gist = PARAMS[0].split(GIST)[1]
         consoleElement.value = gist
           ? `${API}/${APP}/?g=${gist}`
-          : 'Invalid Gist Raw Link!';
-      } else {
-        consoleElement.value = 'Paste a link from RAW github gist here!';
-      }
-      droneIntel(alertIcon);
-      break;
-    // case 'VANISH': {
-    //   const source = editor.getValue();
-    //   State.topLevel = extractTopLevel(source, 'vanish').join('\n').trim();
-    //   editor.setValue(
-    //     source.replace(`//<vanish>\n${State.topLevel}</vanish>`, '').trimStart()
-    //   );
-    //   droneIntel(keyIcon);
-    //   playSound(5);
-    //   return;
-    // }
+          : 'Invalid Gist Raw Link!'
+      } else consoleElement.value = 'Paste a link from RAW github gist here!'
+      droneIntel(alertIcon)
+      break
     case 'UNVEIL':
       if (State.topLevel.length) {
-        editor.setValue(`${State.topLevel};\n${editor.getValue()}`);
-        State.topLevel = '';
-        droneIntel(keyIcon);
-        playSound(5);
+        editor.setValue(`${State.topLevel};\n${editor.getValue()}`)
+        State.topLevel = ''
+        droneIntel(keyIcon)
+        playSound(5)
       }
-      break;
+      break
     case 'BACK':
-      editor.setValue(State.source);
-      playSound(5);
-      droneIntel(keyIcon);
-      consoleElement.value = '';
-      break;
+      editor.setValue(State.source)
+      playSound(5)
+      droneIntel(keyIcon)
+      consoleElement.value = ''
+      break
     case 'HELP':
-      State.source = editor.getValue();
+      State.source = editor.getValue()
       editor.setValue(`/* 
 -----------------------------
  Press on the drone - run code
@@ -302,16 +265,16 @@ SAVE name
  PRETTY: format code
  LICENSE: read license info
  ----------------------------
-*/`);
-      playSound(4);
-      droneIntel(questionIcon);
-      consoleElement.value = '';
-      break;
+*/`)
+      playSound(4)
+      droneIntel(questionIcon)
+      consoleElement.value = ''
+      break
     default:
-      if (CMD.trim()) printErrors(CMD + ' does not exist!');
-      else consoleElement.value = '';
-      droneIntel(errorIcon);
-      playSound(0);
-      break;
+      if (CMD.trim()) printErrors(CMD + ' does not exist!')
+      else consoleElement.value = ''
+      droneIntel(errorIcon)
+      playSound(0)
+      break
   }
-};
+}
