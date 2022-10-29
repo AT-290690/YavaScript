@@ -119,7 +119,7 @@ body {
   fill: var(--icons);
   stroke: var(--icons);
 }
-#header {
+.header {
   /* margin-left: 20px; */
   /* right: 0px;
   bottom: 10px; */
@@ -127,6 +127,7 @@ body {
   border: none;
   /* padding-left: 10px; */
   display: flex;
+  gap: 0px;
   align-items: center;
   background-color: var(--background-primary);
   z-index: 1000;
