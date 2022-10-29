@@ -127,7 +127,6 @@ body {
   height: 50px;
   border: none;
   padding-left: 10px;
-  width: 130px;
   border-left: 1px solid var(--border);
   display: flex;
   align-items: center;
