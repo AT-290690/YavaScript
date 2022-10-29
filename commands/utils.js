@@ -7,6 +7,7 @@ import {
   errorIcon,
   popupContainer,
   consoleEditor,
+  canvasContainer,
 } from '../main.js'
 export const print = function (...values) {
   values.forEach(
