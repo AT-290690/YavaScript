@@ -20,24 +20,14 @@ export const debugButt = document.getElementById('debug-button')
 export const popupContainer = document.getElementById('popup-container')
 export const canvasContainer = document.getElementById('canvas-container')
 
-export const createPopUp = () => {
-  popupContainer.innerHTML = ''
-  const popup = CodeMirror(popupContainer)
-  popupContainer.style.display = 'block'
-  return popup
-}
-export const createCanvas = () => {
-  canvasContainer.innerHTML = ''
-  canvasContainer.style.display = 'block'
-  const canvas = document.createElement('canvas')
-  canvasContainer.appendChild(canvas)
-  return canvas
-}
 export const compositionContainer = document.getElementById(
   'composition-container'
 )
 export const editorResizerElement = document.getElementById('editor-resizer')
 export const consoleResizerElement = document.getElementById('console-resizer')
+
+export const consoleEditor = CodeMirror(popupContainer)
+
 debugButt.addEventListener('click', () =>
   !State.settings.lint
     ? execute({ value: 'LINT ON' })
@@ -79,13 +69,12 @@ document.addEventListener('keydown', (e) => {
 State.activeWindow = editorContainer
 editor.focus()
 window.addEventListener('resize', () => {
-  editor.setSize(
-    document.body.getBoundingClientRect().width,
-    document.body.getBoundingClientRect().height - 70
-  )
+  const bouds = document.body.getBoundingClientRect()
+  const width = bouds.width
+  const height = bouds.height
+  editor.setSize(width, height - 70)
+  consoleEditor.setSize(width - 2, height / 3)
 })
-editor.setSize(
-  document.body.getBoundingClientRect().width,
-  document.body.getBoundingClientRect().height - 70
-)
+const bounds = document.body.getBoundingClientRect()
+editor.setSize(bounds.width, bounds.height - 70)
 consoleElement.setAttribute('placeholder', 'enter HELP')

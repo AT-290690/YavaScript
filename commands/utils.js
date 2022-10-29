@@ -5,14 +5,22 @@ import {
   consoleElement,
   alertIcon,
   errorIcon,
-  createPopUp,
-  createCanvas,
+  popupContainer,
+  consoleEditor,
 } from '../main.js'
 export const print = function (...values) {
   values.forEach(
     (x) => (consoleElement.value += `${JSON.stringify(x) ?? undefined}`)
   )
   return values
+}
+
+export const createCanvas = () => {
+  canvasContainer.innerHTML = ''
+  canvasContainer.style.display = 'block'
+  const canvas = document.createElement('canvas')
+  canvasContainer.appendChild(canvas)
+  return canvas
 }
 export const printErrors = (errors) => {
   consoleElement.classList.remove('info_line')
@@ -120,8 +128,13 @@ export const exe = (source, params) => {
 }
 globalThis._logger = (disable = 0) => {
   if (disable) return (msg, count) => {}
-  const popup = createPopUp()
-  popup.setSize(window.innerWidth - 2, window.innerHeight / 3)
+  popupContainer.style.display = 'block'
+  const popup = consoleEditor
+  popup.setValue('')
+  const bouds = document.body.getBoundingClientRect()
+  const width = bouds.width
+  const height = bouds.height
+  popup.setSize(width - 2, height / 3)
   let count = 0
   return (msg, comment = '', space) => {
     const current = popup.getValue()
