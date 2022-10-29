@@ -67,28 +67,25 @@ body {
   background-color: var(--background-primary);
 }
 #console {
+  background-color: transparent;
   outline: none;
   border: none;
   resize: none;
-  padding-left: 50px;
-  height: 50px;
-  position: fixed;
-  bottom: 0;
+  width: 100%;
+  /* position: fixed; */
+  /* bottom: 0; */
 }
 .success_line,
 .error_line,
 .info_line,
 .warn_line {
-  position: absolute;
   resize: vertical;
-  width: 98%;
   z-index: 5;
   font-family: var(--font-family);
   font-style: normal;
   letter-spacing: -0.05em;
   background-color: var(--background-primary);
-  padding: 5px;
-  padding-inline-start: 10px;
+  padding-inline-start: 40px;
 }
 .error_line {
   color: #ff275d;
@@ -99,6 +96,7 @@ body {
 }
 #editor-container {
   z-index: 1;
+  border: solid 1px var(--border);
 }
 @keyframes fadeOutOpacity {
   0% {
@@ -122,23 +120,23 @@ body {
   stroke: var(--icons);
 }
 #header {
-  right: 0px;
-  bottom: 10px;
+  margin-left: 20px;
+  /* right: 0px;
+  bottom: 10px; */
   height: 50px;
   border: none;
   padding-left: 10px;
-  border-left: 1px solid var(--border);
   display: flex;
   align-items: center;
   background-color: var(--background-primary);
-  position: fixed;
   z-index: 1000;
 }
 .droneIcon,
 #drone {
   cursor: pointer;
-  bottom: 0px;
-  left: 5px;
+  /* bottom: 0px;
+  left: 5px; */
+  top: 5px;
   text-align: center;
   padding: 0px;
   background-color: transparent;
@@ -146,8 +144,9 @@ body {
   z-index: 1000;
 }
 .droneIcon {
-  bottom: 50px;
-  left: 0px;
+  /* bottom: 50px;
+  left: 0px; */
+  left: 25px;
   visibility: hidden;
 }
 #exit-full {
@@ -271,7 +270,7 @@ input:focus {
 }
 #popup-container {
   position: absolute;
-  bottom: 70px;
+  bottom: 10px;
   left: 0px;
   width: fit-content;
   z-index: 1000;
@@ -283,7 +282,7 @@ input:focus {
 #canvas-container {
   position: absolute;
   width: fit-content;
-  top: 5px;
+  top: 50px;
   right: 0;
   z-index: 1000;
   background-color: transparent;

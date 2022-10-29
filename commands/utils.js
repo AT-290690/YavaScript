@@ -3,7 +3,7 @@ import {
   editor,
   formatterIcon,
   consoleElement,
-  alertIcon,
+  // alertIcon,
   errorIcon,
   popupContainer,
   consoleEditor,
@@ -114,7 +114,7 @@ export const exe = (source, params) => {
   try {
     const result = new Function(`${params.topLevel};${source}`)()
     droneButton.classList.remove('shake')
-    droneIntel(alertIcon)
+    droneIntel(formatterIcon)
     playSound(6)
     return result
   } catch (err) {
@@ -187,6 +187,7 @@ export const run = () => {
   consoleElement.classList.add('info_line')
   consoleElement.classList.remove('error_line')
   consoleElement.value = ''
+  popupContainer.style.display = 'none'
   const source = (State.source = editor.getValue())
   const out = exe(source.trim(), { topLevel: State.topLevel })
   if (out !== undefined) print(out)

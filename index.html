@@ -20,7 +20,10 @@
     <link rel="icon" type="image/svg" href="assets/images/js.svg" />
   </head>
   <body>
+
     <div id="header">
+      <input id="console" aria-label="Command Console" class="info_line" autocomplete="off" spellcheck="false"></input>
+      <div id="header">
       <button id="formatter" aria-label="Format Code" title="format code" class="header-button svgIcon">
         <svg width="18" height="18" viewBox="0 0 26 23"  xmlns="http://www.w3.org/2000/svg">
           <path d="M15 1.90735e-06L16.4779 9.52215L26 11L16.4779 12.4779L15 22L13.5221 12.4779L4 11L13.5221 9.52215L15 1.90735e-06Z" />
@@ -75,7 +78,8 @@
        <rect class="a" x="101.16" y="23.37" width="9.57"
          height="24.51"
          transform="translate(70.32 141.56) rotate(-90)" />
-     </svg>      </button>
+     </svg>      
+    </button>
 
      <button  id="debug-button"  aria-label="Lint Button" title="lint" class="header-button svgIcon">
       <svg fill="none" stroke-width="4" width="18" height="18" viewBox="0 0 37 39" xmlns="http://www.w3.org/2000/svg">
@@ -94,18 +98,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="18" height="18" viewBox="0 0 30 70" style="overflow: hidden; background: transparent;"><defs></defs><g id="two-0" transform="matrix(1 0 0 1 0 0)" opacity="1"><path transform="matrix(1 0 0 1 5 15)" id="two-1" d="M -5 -15 L 5 -15 L 5 15 L -5 15 Z "  stroke="undefined" stroke-width="1" stroke-opacity="1" fill-opacity="1" visibility="visible" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4"></path><path transform="matrix(1 0 0 1 30 22.5)" id="two-2" d="M -5 -12.5 L 5 -12.5 L 5 12.5 L -5 12.5 Z "  stroke="undefined" stroke-width="1" stroke-opacity="1" fill-opacity="1" visibility="visible" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4"></path><path transform="matrix(1 0 0 1 12.5 5)" id="two-3" d="M -12.5 -5 L 12.5 -5 L 12.5 5 L -12.5 5 Z "  stroke="undefined" stroke-width="1" stroke-opacity="1" fill-opacity="1" visibility="visible" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4"></path><path transform="matrix(1 0 0 1 15 30)" id="two-4" d="M -15 -5 L 15 -5 L 15 5 L -15 5 Z "  stroke="undefined" stroke-width="1" stroke-opacity="1" fill-opacity="1" visibility="visible" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4"></path><path transform="matrix(1 0 0 1 15 45)" id="two-5" d="M -5 -20 L 5 -20 L 5 20 L -5 20 Z "  stroke="undefined" stroke-width="1" stroke-opacity="1" fill-opacity="1" visibility="visible" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4"></path><path transform="matrix(1 0 0 1 19 51)" id="two-6" d="M -9 -4 L 9 -4 L 9 4 L -9 4 Z "  stroke="undefined" stroke-width="1" stroke-opacity="1" fill-opacity="1" visibility="visible" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4"></path><path transform="matrix(1 0 0 1 21 66)" id="two-7" d="M -11 -4 L 11 -4 L 11 4 L -11 4 Z "  stroke="undefined" stroke-width="1" stroke-opacity="1" fill-opacity="1" visibility="visible" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4"></path></g>
 </svg>
 </button>
+</div>
     </div>
-    <div id="editor-container"></div>
-    <div id="canvas-container"></div>
-    <div id="popup-container"></div>
-    <input id="console" aria-label="Command Console" class="info_line" autocomplete="off" spellcheck="false"></input>
-    <img src="./assets/images/alert.svg" class="droneIcon" id="alert-drone-icon" />
+    <!-- <img src="./assets/images/alert.svg" class="droneIcon" id="alert-drone-icon" /> -->
     <img src="./assets/images/error.svg" class="droneIcon" id="error-drone-icon" />
     <img src="./assets/images/sparckle.svg" class="droneIcon" id="formatter-drone-icon" />
     <img src="./assets/images/key-drone-icon.svg" class="droneIcon" id="key-drone-icon" />
-    <img src="./assets/images/question.svg" class="droneIcon" id="question-drone-icon" />
+    <!-- <img src="./assets/images/question.svg" class="droneIcon" id="question-drone-icon" /> -->
     <img src="./assets/images/x-icon.svg" class="droneIcon" id="x-drone-icon" />
-
     <svg
       id="drone"
       class="float"
@@ -233,6 +233,9 @@
         </g>
       </g>
     </svg>
+    <div id="editor-container"></div>
+    <div id="canvas-container"></div>
+    <div id="popup-container"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.4/beautify.min.js"></script>
     <script type="module" src="./main.js"></script>
   </body>

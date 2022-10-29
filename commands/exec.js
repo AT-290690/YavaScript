@@ -1,10 +1,10 @@
 import {
-  alertIcon,
+  // alertIcon,
   consoleElement,
   errorIcon,
   formatterIcon,
   keyIcon,
-  questionIcon,
+  // questionIcon,
   xIcon,
 } from '../main.js'
 import { editor } from '../main.js'
@@ -80,7 +80,7 @@ export const execute = async (CONSOLE) => {
   * Hide certain parts of the snippets
   
 */`)
-      droneIntel(questionIcon)
+      droneIntel(keyIcon)
       playSound(5)
       break
     case 'LICENSE':
@@ -108,7 +108,7 @@ export const execute = async (CONSOLE) => {
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
   */`)
-      droneIntel(questionIcon)
+      droneIntel(keyIcon)
       playSound(5)
 
       break
@@ -126,7 +126,7 @@ export const execute = async (CONSOLE) => {
         } else if (inp === 'ON' && !State.settings.lint) {
           execute({ value: 'UNVEIL' }).then(() => {
             playSound(1)
-            droneIntel(alertIcon)
+            droneIntel(formatterIcon)
             debug()
           })
         } else if (!inp) consoleElement.value = 'Provide a lint option on/off'
@@ -157,6 +157,15 @@ SAVE name
       )
       playSound(3)
       droneIntel(keyIcon)
+      break
+    case 'ESC':
+    case 'X':
+      document.dispatchEvent(
+        new KeyboardEvent('keydown', {
+          key: 'Escape',
+        })
+      )
+
       break
     case 'LOAD':
       State.source = editor.getValue()
@@ -199,7 +208,7 @@ SAVE name
         case 'ON':
           State.mute = 0
           localStorage.setItem('mute', 0)
-          droneIntel(alertIcon)
+          droneIntel(formatterIcon)
           playSound(5)
           break
         case 'OFF':
@@ -224,7 +233,7 @@ SAVE name
           ? `${API}/${APP}/?g=${gist}`
           : 'Invalid Gist Raw Link!'
       } else consoleElement.value = 'Paste a link from RAW github gist here!'
-      droneIntel(alertIcon)
+      droneIntel(formatterIcon)
       break
     case 'UNVEIL':
       if (State.topLevel.length) {
@@ -253,6 +262,7 @@ SAVE name
  HELP: list these commands
  RUN: run code 
  EMPTY: clears the editor content
+ X: clears search, log and canvas pannels
  SAVE: save in starage
  LOAD: load from storage
  DELETE: remove from storage
@@ -267,7 +277,7 @@ SAVE name
  ----------------------------
 */`)
       playSound(4)
-      droneIntel(questionIcon)
+      droneIntel(keyIcon)
       consoleElement.value = ''
       break
     default:
