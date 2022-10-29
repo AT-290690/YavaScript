@@ -152,8 +152,12 @@ ${msg !== undefined ? JSON.stringify(msg, null, space) : undefined}`
 }
 globalThis._print = (disable = 0) => {
   if (disable) return () => {}
-  const popup = createPopUp()
-  popup.setSize(window.innerWidth - 2, window.innerHeight / 3)
+  popupContainer.style.display = 'block'
+  const popup = consoleEditor
+  const bouds = document.body.getBoundingClientRect()
+  const width = bouds.width
+  const height = bouds.height
+  popup.setSize(width - 2, height / 3)
   return (msg) => {
     const current = popup.getValue()
     popup.setValue(
@@ -170,13 +174,13 @@ globalThis._print = (disable = 0) => {
     return msg
   }
 }
-globalThis._canvas = (
-  w = window.innerWidth / 2,
-  h = window.innerHeight - 85
-) => {
+globalThis._canvas = (w, h) => {
   const canvas = createCanvas()
-  canvas.width = w
-  canvas.height = h
+  if (!(w ?? h)) {
+    const bounds = document.body.getBoundingClientRect()
+    canvas.width = (w ?? bounds.width) / 2
+    canvas.height = (h ?? bounds.height) - 85
+  }
   return canvas
 }
 export const run = () => {
