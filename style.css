@@ -85,7 +85,7 @@ body {
   font-style: normal;
   letter-spacing: -0.05em;
   background-color: var(--background-primary);
-  padding-inline-start: 40px;
+  padding-inline-start: 10%;
 }
 .error_line {
   color: #ff275d;
@@ -120,12 +120,12 @@ body {
   stroke: var(--icons);
 }
 #header {
-  margin-left: 20px;
+  /* margin-left: 20px; */
   /* right: 0px;
   bottom: 10px; */
   height: 50px;
   border: none;
-  padding-left: 10px;
+  /* padding-left: 10px; */
   display: flex;
   align-items: center;
   background-color: var(--background-primary);
