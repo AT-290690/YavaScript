@@ -28,10 +28,12 @@ export const consoleResizerElement = document.getElementById('console-resizer')
 
 export const consoleEditor = CodeMirror(popupContainer)
 
-debugButt.addEventListener('click', () =>
-  !State.settings.lint
-    ? execute({ value: 'LINT ON' })
-    : execute({ value: 'LINT OFF' })
+debugButt.addEventListener(
+  'click',
+  () => execute({ value: 'LOG' })
+  // !State.settings.lint
+  //   ? execute({ value: 'LINT ON' })
+  //   : execute({ value: 'LINT OFF' })
 )
 droneButton.addEventListener('click', () => run())
 appButton.addEventListener('click', () => {

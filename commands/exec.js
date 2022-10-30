@@ -16,6 +16,7 @@ import {
   debug,
   droneIntel,
   extractTopLevel,
+  exe,
 } from './utils.js'
 
 const href = window.location.href.split('/').filter(Boolean)
@@ -112,28 +113,48 @@ export const execute = async (CONSOLE) => {
       playSound(5)
 
       break
-    case 'LINT':
+    case 'LOG':
       {
-        const inp = PARAMS[0]?.toUpperCase()
-        if (inp === 'OFF' && State.settings.lint) {
-          State.settings.lint = false
-          editor.switchInstance({
-            lint: false,
-            doc: editor.getValue(),
-          })
-          droneIntel(xIcon)
-          playSound(5)
-        } else if (inp === 'ON' && !State.settings.lint) {
-          execute({ value: 'UNVEIL' }).then(() => {
-            playSound(1)
-            droneIntel(formatterIcon)
-            debug()
-          })
-        } else if (!inp) consoleElement.value = 'Provide a lint option on/off'
-        else
-          consoleElement.value = 'LINT ' + (State.settings.lint ? 'OFF' : 'ON')
+        consoleElement.classList.add('info_line')
+        consoleElement.classList.remove('error_line')
+        const source = editor.getValue()
+        const selection = editor.getSelection()
+        const formattedSelection =
+          selection[selection.length - 1] === ';'
+            ? selection.substring(selection, selection.length - 1)
+            : selection
+        const label = JSON.stringify(selection)
+        const out = `__debug_log(${formattedSelection}, ${label})`
+        editor.replaceSelection(out)
+        exe(`const __debug_log = _logger();${editor.getValue().trim()}`, {
+          topLevel: State.topLevel,
+        })
+        editor.setValue(source)
       }
+
       break
+    // case 'LINT':
+    //   {
+    //     const inp = PARAMS[0]?.toUpperCase()
+    //     if (inp === 'OFF' && State.settings.lint) {
+    //       State.settings.lint = false
+    //       editor.switchInstance({
+    //         lint: false,
+    //         doc: editor.getValue(),
+    //       })
+    //       droneIntel(xIcon)
+    //       playSound(5)
+    //     } else if (inp === 'ON' && !State.settings.lint) {
+    //       execute({ value: 'UNVEIL' }).then(() => {
+    //         playSound(1)
+    //         droneIntel(formatterIcon)
+    //         debug()
+    //       })
+    //     } else if (!inp) consoleElement.value = 'Provide a lint option on/off'
+    //     else
+    //       consoleElement.value = 'LINT ' + (State.settings.lint ? 'OFF' : 'ON')
+    //   }
+    //   break
     case 'LIST':
       const out = []
       for (let i = 0; i < localStorage.length; ++i) {
@@ -270,8 +291,6 @@ SAVE name
  LIST: list stash content
  SOUND ON:  enable sounds
  SOUND OFF: dissable sounds
- LINT ON: enable lint
- LINT OFF: dissable lint
  PRETTY: format code
  LICENSE: read license info
  ----------------------------

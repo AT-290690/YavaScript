@@ -140,7 +140,7 @@ globalThis._logger = (disable = 0) => {
   return (msg, comment = '', space) => {
     const current = popup.getValue()
     popup.setValue(
-      `${current ? current + '\n' : ''}// ${count++} ${comment}
+      `${current ? current + '\n' : ''}// ${comment}
 ${msg !== undefined ? JSON.stringify(msg, null, space) : undefined}`
     )
     popup.setCursor(
