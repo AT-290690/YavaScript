@@ -144,7 +144,7 @@ body {
   display: grid;
   align-items: center;
   background-color: transparent;
-  z-index: 1000;
+  z-index: 1003;
 }
 .droneIcon,
 #drone {
