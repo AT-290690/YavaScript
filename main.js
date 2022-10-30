@@ -30,7 +30,7 @@ export const consoleEditor = CodeMirror(popupContainer)
 
 debugButt.addEventListener(
   'click',
-  () => execute({ value: 'LOG' })
+  () => execute({ value: '_LOG' })
   // !State.settings.lint
   //   ? execute({ value: 'LINT ON' })
   //   : execute({ value: 'LINT OFF' })

@@ -1,4 +1,5 @@
 import {
+  consoleEditor,
   // alertIcon,
   consoleElement,
   errorIcon,
@@ -113,8 +114,9 @@ export const execute = async (CONSOLE) => {
       playSound(5)
 
       break
-    case 'LOG':
+    case '_LOG':
       {
+        consoleElement.value = ''
         consoleElement.classList.add('info_line')
         consoleElement.classList.remove('error_line')
         const source = editor.getValue()
@@ -124,12 +126,15 @@ export const execute = async (CONSOLE) => {
             ? selection.substring(selection, selection.length - 1)
             : selection
         const label = JSON.stringify(selection)
-        const out = `__debug_log(${formattedSelection}, ${label})`
+        const out = `${selection === '' ? ';' : ''}__debug_log(${
+          formattedSelection || '"Nothing is selected"'
+        }, ${label})`
         editor.replaceSelection(out)
         exe(`const __debug_log = _logger();${editor.getValue().trim()}`, {
           topLevel: State.topLevel,
         })
         editor.setValue(source)
+        consoleEditor.focus()
       }
 
       break
