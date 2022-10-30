@@ -56,7 +56,7 @@ export const execute = async (CONSOLE) => {
   const selectedConsoleLine = CONSOLE.value.trim()
   const [CMD, ...PARAMS] = selectedConsoleLine.split(' ')
   switch (CMD?.trim()?.toUpperCase()) {
-    case 'EMPTY':
+    case 'CLEAR':
       State.source = editor.getValue()
       editor.setValue('')
       consoleElement.value = ''
@@ -261,7 +261,7 @@ SAVE name
  BACK: go back to the code
  HELP: list these commands
  RUN: run code 
- EMPTY: clears the editor content
+ CLEAR: clears the editor content
  X: clears search, log and canvas pannels
  SAVE: save in starage
  LOAD: load from storage

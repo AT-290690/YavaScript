@@ -181,7 +181,8 @@ body {
 }
 .cm-editor {
   border: none;
-  border-bottom: 1px solid var(--border);
+  /* border-bottom: 1px solid var(--border);
+  border-bottom: none; */
 }
 .header-button {
   cursor: pointer;
@@ -220,6 +221,12 @@ input:focus {
   100% {
     transform: translatey(0px);
   }
+}
+.cm-panels,
+.cm-search {
+  background-color: transparent !important;
+  width: auto;
+  left: 5px;
 }
 .cm-completionLabel,
 .cm-completionMatchedText,
@@ -285,7 +292,7 @@ input:focus {
 }
 #popup-container {
   position: absolute;
-  bottom: 10px;
+  bottom: 8px;
   left: 0px;
   width: fit-content;
   z-index: 1000;
