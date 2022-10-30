@@ -56,7 +56,7 @@ document.addEventListener('keydown', (e) => {
     e.preventDefault()
     e.stopPropagation()
     popupContainer.style.display = 'none'
-    run()
+    editor.getSelection() ? execute({ value: '_LOG' }) : run()
   } else if (e.key === 'Enter') {
     if (activeElement === consoleElement) {
       execute(consoleElement)

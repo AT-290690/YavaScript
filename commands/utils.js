@@ -136,7 +136,7 @@ globalThis._logger = (disable = 0) => {
   const width = bouds.width
   const height = bouds.height
   popup.setSize(width - 2, height / 3)
-  let count = 0
+  // let count = 0
   return (msg, comment = '', space) => {
     const current = popup.getValue()
     popup.setValue(
