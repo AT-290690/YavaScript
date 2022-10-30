@@ -74,7 +74,12 @@ window.addEventListener('resize', () => {
   const height = bouds.height
   editor.setSize(width - 10, height - 60)
   // editor.setSize(width, height - 70)
-  consoleEditor.setSize(width - 2, height / 3)
+  if (popupContainer.style.display === 'block') {
+    consoleEditor.setSize(width - 2, height / 3)
+  }
+  if (canvasContainer.style.display === 'block') {
+    canvasContainer.style.display = 'none'
+  }
 })
 const bounds = document.body.getBoundingClientRect()
 editor.setSize(bounds.width - 10, bounds.height - 60)

@@ -154,6 +154,7 @@ globalThis._print = (disable = 0) => {
   if (disable) return () => {}
   popupContainer.style.display = 'block'
   const popup = consoleEditor
+  popup.setValue('')
   const bouds = document.body.getBoundingClientRect()
   const width = bouds.width
   const height = bouds.height
@@ -179,7 +180,7 @@ globalThis._canvas = (w, h) => {
   if (!(w ?? h)) {
     const bounds = document.body.getBoundingClientRect()
     canvas.width = (w ?? bounds.width) / 2
-    canvas.height = (h ?? bounds.height) - 85
+    canvas.height = (h ?? bounds.height) - 65
   }
   return canvas
 }
