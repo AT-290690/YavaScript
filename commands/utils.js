@@ -71,21 +71,6 @@ export const extractTopLevel = (source, tag) => {
   return result
 }
 
-export const debug = () => {
-  if (!State.settings.lint)
-    editor.switchInstance({
-      lint: true,
-      doc: editor.getValue(),
-      callback: () =>
-        setTimeout(() => {
-          State.settings.lint = true
-          debug()
-          droneIntel(formatterIcon)
-          playSound(3)
-        }, 2000),
-    })
-}
-
 export const droneIntel = (icon) => {
   icon.style.visibility = 'visible'
   setTimeout(() => (icon.style.visibility = 'hidden'), 500)

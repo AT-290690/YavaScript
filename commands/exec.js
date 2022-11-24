@@ -14,7 +14,6 @@ import {
   printErrors,
   playSound,
   State,
-  debug,
   droneIntel,
   extractTopLevel,
   exe,
