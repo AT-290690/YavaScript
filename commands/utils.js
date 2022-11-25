@@ -95,9 +95,10 @@ export const playSound = (index) => {
     State.sounds[index].play()
   }
 }
-export const exe = (source, params) => {
+const AsyncFunction = async function () {}.constructor
+export const exe = async (source, params) => {
   try {
-    const result = new Function(`${params.topLevel};${source}`)()
+    const result = await new AsyncFunction(`${params.topLevel};${source}`)()
     droneButton.classList.remove('shake')
     droneIntel(formatterIcon)
     playSound(6)
@@ -169,13 +170,13 @@ globalThis._canvas = (w, h) => {
   }
   return canvas
 }
-export const run = () => {
+export const run = async () => {
   consoleElement.classList.add('info_line')
   consoleElement.classList.remove('error_line')
   consoleElement.value = ''
   popupContainer.style.display = 'none'
   const source = (State.source = editor.getValue())
-  const out = exe(source.trim(), { topLevel: State.topLevel })
+  const out = await exe(source.trim(), { topLevel: State.topLevel })
   if (out !== undefined) print(out)
   return source
 }
